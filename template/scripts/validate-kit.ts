@@ -8,7 +8,7 @@
  */
 import { readFileSync } from "node:fs";
 import { brandKitSchema } from "../config/brand-kit";
-import { checkAssets, describeIssues, fontNotes, kitAssets } from "./report";
+import { checkAssets, contrastSummary, contrastWarnings, describeIssues, fontNotes, kitAssets } from "./report";
 
 const args = process.argv.slice(2);
 const kitPath = args.find((arg) => !arg.startsWith("--"));
@@ -38,9 +38,10 @@ if (!result.success) {
 
 const assetProblems = assetsDir ? checkAssets(kitAssets(result.data), assetsDir) : [];
 for (const note of fontNotes(result.data)) console.log(`  note: ${note}`);
+for (const warning of contrastWarnings(result.data)) console.log(`  warning: ${warning}`);
 if (assetProblems.length > 0) {
   console.error(`✗ ${kitPath}: valid kit, but ${assetProblems.length} asset problem(s) in ${assetsDir}`);
   for (const line of assetProblems) console.error(`  - ${line}`);
   process.exit(1);
 }
-console.log(`✓ ${kitPath}: valid brand kit (version ${result.data.kitVersion})${assetsDir ? `; assets OK in ${assetsDir}` : "; assets not checked (pass --assets <dir>)"}`);
+console.log(`✓ ${kitPath}: valid brand kit (version ${result.data.kitVersion}; ${contrastSummary(result.data)})${assetsDir ? `; assets OK in ${assetsDir}` : "; assets not checked (pass --assets <dir>)"}`);

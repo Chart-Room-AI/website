@@ -6,7 +6,7 @@
 import { join } from "node:path";
 import { clientConfigs, DEFAULT_CLIENT_CONFIG } from "../config/clients";
 import { clientConfigSchema } from "../config/schema";
-import { checkAssets, describeIssues, fontNotes, kitAssets } from "./report";
+import { checkAssets, contrastSummary, contrastWarnings, describeIssues, fontNotes, kitAssets } from "./report";
 
 const id = process.env.CLIENT_CONFIG?.trim() || DEFAULT_CLIENT_CONFIG;
 const input = clientConfigs[id];
@@ -25,14 +25,16 @@ if (!result.success) {
 const config = result.data;
 const photos = [
   { path: "hero.image", kind: "hero" as const, asset: config.hero.image },
+  ...(config.about.image ? [{ path: "about.image", kind: "gallery" as const, asset: config.about.image }] : []),
   ...config.gallery.map((photo, i) => ({ path: `gallery.${i}`, kind: "gallery" as const, asset: photo })),
 ];
 const problems = checkAssets([...kitAssets(config.brand, "brand"), ...photos], join(process.cwd(), "public", "clients", id));
 
 for (const note of fontNotes(config.brand, "brand.fonts")) console.log(`  note: ${note}`);
+for (const warning of contrastWarnings(config.brand, "brand.palette")) console.log(`  warning: ${warning}`);
 if (problems.length > 0) {
   console.error(`✗ Client config "${id}": ${problems.length} asset problem(s)`);
   for (const line of problems) console.error(`  - ${line}`);
   process.exit(1);
 }
-console.log(`✓ Client config "${id}" is valid (design: ${config.design}; brand kit v${config.brand.kitVersion}; assets OK)`);
+console.log(`✓ Client config "${id}" is valid (design: ${config.design}; brand kit v${config.brand.kitVersion}; assets OK; ${contrastSummary(config.brand)})`);

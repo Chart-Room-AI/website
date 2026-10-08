@@ -46,6 +46,15 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--brand-accent);
+  /* Two-tone ring: a surface gap plus a text-colored outline, so focus stays
+     visible on light surfaces and on primary/accent fills alike. */
+  outline: 3px solid var(--brand-text);
   outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--brand-surface);
+}
+
+/* On primary bands (header bands, hero, footer) the outline uses on-primary. */
+.bg-primary :focus-visible {
+  outline-color: var(--brand-on-primary);
+  box-shadow: 0 0 0 2px var(--brand-primary);
 }

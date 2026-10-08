@@ -3,6 +3,7 @@ import { join } from "node:path";
 import type { z } from "zod";
 import { assetRules, type AssetKind } from "../config/assets";
 import type { BrandAsset, BrandKit } from "../config/brand-kit";
+import { contrastReport } from "../config/contrast";
 import { resolveFont } from "../config/font-catalog";
 
 /** One line per zod issue: "path: problem", with missing fields called out. */
@@ -63,4 +64,21 @@ export function checkAssets(refs: AssetRef[], dir: string): string[] {
     }
   }
   return problems;
+}
+
+/**
+ * Contrast warnings for the text/background pairs the classic design uses
+ * (config/contrast.ts). Warnings don't fail the build: the kit is the client's
+ * brand, but a failing pair should be raised with them before launch.
+ */
+export function contrastWarnings(kit: BrandKit, prefix = "palette"): string[] {
+  return contrastReport(kit.palette)
+    .filter((check) => !check.ok)
+    .map((check) => `${prefix}: ${check.pair} is ${check.ratio}:1 (${check.fg} on ${check.bg}); WCAG AA needs ${check.min}:1`);
+}
+
+/** One-line contrast summary, e.g. "contrast AA 8/8". */
+export function contrastSummary(kit: BrandKit): string {
+  const report = contrastReport(kit.palette);
+  return `contrast AA ${report.filter((check) => check.ok).length}/${report.length}`;
 }

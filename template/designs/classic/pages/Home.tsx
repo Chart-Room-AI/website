@@ -1,13 +1,11 @@
-import Image from "next/image";
-import { assetUrl } from "@config/assets";
 import { telHref } from "@/lib/contact";
 import { iconTileClass, ServiceIcon } from "@/lib/icons";
 import { quoteHref } from "@/lib/routes";
 import type { DesignPageProps } from "../../types";
-import { ButtonLink, Container, SectionHeading, Stars } from "../components/ui";
+import { ButtonLink, Container, CtaBand, Photo, SectionHeading, Stars } from "../components/ui";
 
 export function Home({ config }: DesignPageProps) {
-  const { business, brand, hero, services, reviews, serviceArea, contact } = config;
+  const { business, brand, hero, services, reviews, contact } = config;
   const call = telHref(contact.phone);
 
   return (
@@ -28,13 +26,13 @@ export function Home({ config }: DesignPageProps) {
               </ButtonLink>
             </div>
           </div>
-          <Image
-            src={assetUrl(config.id, hero.image.file)}
-            alt={hero.image.alt}
-            width={hero.image.width}
-            height={hero.image.height}
-            className="h-auto w-full rounded-2xl shadow-2xl shadow-black/25"
+          <Photo
+            config={config}
+            image={hero.image}
+            ratio={brand.imageDirection.aspectRatios.hero}
+            sizes="(min-width: 768px) 45vw, 100vw"
             priority
+            className="shadow-2xl shadow-black/25"
           />
         </Container>
       </section>
@@ -91,20 +89,7 @@ export function Home({ config }: DesignPageProps) {
       ) : null}
 
       {/* Service area + closing call to action */}
-      <section className="py-16 md:py-20">
-        <Container className="grid items-center gap-8 rounded-2xl bg-accent/10 p-8 md:grid-cols-[1fr_auto] md:p-12">
-          <div>
-            <h2 className="font-heading text-3xl font-semibold text-primary">{serviceArea.summary}</h2>
-            <p className="mt-3 text-foreground/80">{serviceArea.places.join(" · ")}</p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
-            <ButtonLink href={quoteHref}>{hero.quoteCtaLabel}</ButtonLink>
-            <ButtonLink href={call} variant="outline">
-              Call {contact.phone}
-            </ButtonLink>
-          </div>
-        </Container>
-      </section>
+      <CtaBand config={config} />
     </>
   );
 }

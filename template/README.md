@@ -51,14 +51,16 @@ out-of-spec asset fails the build and names the exact field, for example:
 | `config/font-catalog.ts` | Supported fonts and the fallback rules. |
 | `config/icon-names.ts` | Icon names a service can use. |
 | `config/assets.ts` | Asset conventions: formats, sizes, folder. |
+| `config/contrast.ts` | WCAG contrast math and the palette pairs the classic design uses. |
 | `config/clients/<id>.ts` | One file per client. `dry-creek-sample.ts` is **placeholder content**. |
 | `config/clients/<id>.brand-kit.json` | That client's brand kit, as delivered. |
 | `config/clients/index.ts` | Registry of client configs (key = `CLIENT_CONFIG` value). |
 | `designs/index.ts` | Design registry: maps `config.design` to a design. |
-| `designs/classic/` | The first design: frame, the six pages, quote form, thank-you and error pages. |
+| `designs/classic/` | The first design: frame, Home, Services, Gallery, Reviews, About, Contact with the quote form, thank-you and error pages. |
 | `src/app/` | Routes, metadata, generated favicon (`icon.tsx`) and Open Graph image (`opengraph-image.tsx`), and the quote form handler (`api/contact/route.ts`). |
 | `src/lib/mail/` | Email providers for the quote form, keyed by `contact.provider`. |
 | `src/lib/theme.ts` | Turns the brand kit into the CSS variables behind the theme tokens. |
+| `src/lib/site-url.ts` | The origin for `metadataBase`, canonical and Open Graph URLs (see "Site URL on previews"). |
 | `scripts/` | `check-config`, `validate-kit`, `kit-schema`. |
 | `public/clients/<id>/` | That client's logo, swatch and photos. |
 
@@ -122,8 +124,11 @@ An **asset** is `{ "file": string, "width": int, "height": int }`. `file` is a b
 lowercase file name in `template/public/clients/<client-id>/` (no folders); `width` and
 `height` are the intrinsic size in px (for SVG, the viewBox size).
 
-`imageDirection` and `swatch` are metadata for now: the photo/gallery pipeline will use
-them later.
+`imageDirection.aspectRatios` sets the photo crops: `hero` for the Home hero and the About
+photo, `gallery` for every gallery tile (photos are cropped with `object-cover`, so supply
+them at or near that ratio and keep the subject centered). The rest of `imageDirection`
+(mood, style, subjects, avoid) and `swatch` are metadata for photo selection; the site
+doesn't render them.
 
 **Derived, not in the kit:** text color on `primary` and `accent` (white or near-black,
 whichever contrasts better), `muted`/`border` defaults, the favicon (`logo.icon`, else
@@ -148,10 +153,10 @@ close match and no `category` is an error. To add a font, add it to
 ### Icons
 
 [Phosphor Icons](https://phosphoricons.com) (`@phosphor-icons/react`, MIT), rendered on the
-server. `iconStyle.style` maps to Phosphor weights: `outline` → `thin`/`light`/`regular`/`bold`
+server. `iconStyle.corners` also sets photo corners (sharp or rounded). `iconStyle.style` maps to Phosphor weights: `outline` → `thin`/`light`/`regular`/`bold`
 (from `iconStyle.weight`), `solid` → `fill`, `duotone` → `duotone`. Icons appear on service
-cards (`services[].icon`, names in `config/icon-names.ts`), the contact details, and the
-thank-you and error pages. Review stars are text glyphs and do not follow `iconStyle`.
+cards (`services[].icon`, names in `config/icon-names.ts`), the "What's included" and
+"At a glance" check marks, the contact details, and the thank-you and error pages. Review stars are text glyphs and do not follow `iconStyle`.
 
 ### Logo and image files
 
@@ -166,7 +171,7 @@ name. Suggested names: `logo.svg`, `logo-on-dark.svg`, `icon.svg`, `swatch.png`,
 | Favicon source (`logo.icon`) | SVG preferred; PNG | Square; PNG at least 512x512 | 100 KB |
 | Swatch | SVG, PNG, JPG, WebP | any | 1 MB |
 | Hero photo | JPG or WebP (PNG ok) | At least 1600 px wide; `imageDirection.aspectRatios.hero` (default 4:3) | 600 KB |
-| Gallery photos | JPG or WebP (PNG ok) | At least 1200 px wide; default 4:3 | 400 KB each |
+| Gallery photos, About photo | JPG or WebP (PNG ok) | At least 1200 px wide; gallery ratio (gallery), hero ratio (About) | 400 KB each |
 | Open Graph image | not supplied | Generated at 1200x630 | n/a |
 
 SVG is accepted for photos only as placeholders.
@@ -185,13 +190,47 @@ Components use neutral Tailwind tokens only; values come from the brand kit:
 
 Don't add client-specific colors or copy to components; put them in the config or kit.
 
+### Contrast
+
+`check-config` (every build) and `validate-kit` measure the text/background pairs the
+classic design uses (`config/contrast.ts`) against WCAG AA and print a warning for any that
+fail, without failing the build:
+
+| Pair | Minimum |
+|---|---|
+| text on surface; text at 70% on surface; muted on surface | 4.5:1 |
+| primary on surface (headings, links, labels) | 4.5:1 |
+| on-primary on primary; on-primary at 75% on primary | 4.5:1 |
+| on-accent on accent (quote buttons) | 4.5:1 |
+| input border (text at 55% on white) | 3:1 |
+
+`on-primary` and `on-accent` are derived (white or near-black, whichever contrasts more).
+Rating stars use `accent` but are decorative: the rating is also shown and announced as
+text. Focus rings are two-tone (a surface gap plus a text-colored outline, on-primary on
+primary bands), so they stay visible on any palette.
+
+## Site URL on previews
+
+`seo.siteUrl` is the client's real domain. Until launch, and on every preview, it doesn't
+serve this build (and the sample uses a placeholder `*.example.com`), so absolute
+`og:image` URLs would break link previews. `src/lib/site-url.ts` picks the origin for
+`metadataBase`, canonical and `og:url` at build time from Vercel's system env vars:
+
+| Where | Origin |
+|---|---|
+| Vercel production | `seo.siteUrl`; if it's a placeholder (`example.com/.net/.org`, `.test`, `.invalid`, `.example`, `localhost`), `VERCEL_PROJECT_PRODUCTION_URL` |
+| Vercel preview / development | `VERCEL_BRANCH_URL`, else `VERCEL_URL` |
+| Local | `seo.siteUrl`, or `http://localhost:<PORT or 3000>` for a placeholder |
+
 ## Add a client
 
 1. Save the client's brand kit as `config/clients/<id>.brand-kit.json` and their files in
    `public/clients/<id>/`. Check it: `npm run validate-kit -- config/clients/<id>.brand-kit.json --assets public/clients/<id>`.
 2. Copy `config/clients/dry-creek-sample.ts` to `config/clients/<id>.ts`: set `id`, import
    the kit JSON as `brand`, and fill in the content (business, hero, services, photos by
-   file name, reviews, about, contact, service area, social, SEO).
+   file name, reviews, about with an optional `about.image`, contact, service area,
+   social, SEO). Google, Facebook, Yelp and Nextdoor links in `social` also show as
+   "Read reviews on …" buttons on the Reviews page.
 3. Register it in `config/clients/index.ts`.
 4. Set `sample: false` only for real, approved content. `sample: true` shows a "sample
    site" banner and adds `noindex`.
@@ -239,5 +278,5 @@ None of these are set on `client-template` yet, so its form fails safe to the er
 
 ## Not built yet (#21)
 
-Gmail sending (pending Marc's decision), final layouts for Services, Gallery, Reviews and
-About, and a Vercel preview proof of a real submission per provider.
+Gmail sending (pending Marc's decision), and a Vercel preview proof of a real submission
+per provider (needs Turnstile and mail env vars on a client project).

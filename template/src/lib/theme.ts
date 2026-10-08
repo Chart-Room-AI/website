@@ -1,27 +1,10 @@
 import type { CSSProperties } from "react";
 import type { ClientConfig } from "@config/schema";
+import { readableOn } from "@config/contrast";
 import { resolveFont } from "@config/font-catalog";
 import { fonts } from "./fonts";
 
-/** WCAG relative luminance of a #rrggbb color. */
-function luminance(hex: string): number {
-  const channels = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
-  const [r, g, b] = channels.map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-
-function contrastRatio(a: string, b: string): number {
-  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-  return (hi + 0.05) / (lo + 0.05);
-}
-
-const LIGHT = "#ffffff";
-const DARK = "#111111";
-
-/** Text color (white or near-black) with the better contrast on `background`. */
-export function readableOn(background: string): string {
-  return contrastRatio(background, LIGHT) >= contrastRatio(background, DARK) ? LIGHT : DARK;
-}
+export { readableOn };
 
 const genericStacks = {
   serif: "ui-serif, Georgia, serif",

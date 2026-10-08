@@ -99,6 +99,8 @@ export const clientConfigSchema = z.object({
     heading: z.string().min(1),
     paragraphs: z.array(z.string().min(1)).min(1),
     highlights: z.array(z.string().min(1)).default([]),
+    /** Optional photo beside the story, cropped to the brand kit's hero aspect ratio. */
+    image: image.optional(),
   }),
 
   contact: z.object({

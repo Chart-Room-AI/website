@@ -69,6 +69,8 @@ export const dryCreekSample = {
     { file: "gallery-2.svg", alt: "Placeholder photo: front bed planting", width: 800, height: 600, caption: "Front bed planting (placeholder)" },
     { file: "gallery-3.svg", alt: "Placeholder photo: fresh mulch", width: 800, height: 600, caption: "Spring mulch (placeholder)" },
     { file: "gallery-4.svg", alt: "Placeholder photo: retaining wall", width: 800, height: 600, caption: "Retaining wall (placeholder)" },
+    { file: "gallery-5.svg", alt: "Placeholder photo: lawn renovation", width: 800, height: 600, caption: "Lawn renovation (placeholder)" },
+    { file: "gallery-6.svg", alt: "Placeholder photo: stone walkway", width: 800, height: 600, caption: "Walkway (placeholder)" },
   ],
 
   reviews: [
@@ -90,6 +92,18 @@ export const dryCreekSample = {
       rating: 4,
       text: "Placeholder review: great fall cleanup, and they hauled everything away.",
     },
+    {
+      author: "Sample customer D",
+      location: "Moseley",
+      rating: 5,
+      text: "Placeholder review: the new beds came in on budget and they explained how to water everything.",
+    },
+    {
+      author: "Sample customer E",
+      location: "Richmond",
+      rating: 5,
+      text: "Placeholder review: easy to schedule, and the crew was careful around the kids' play area.",
+    },
   ],
 
   about: {
@@ -99,6 +113,7 @@ export const dryCreekSample = {
       "This paragraph will be replaced with the owner's story and approved details after the intake call (#22).",
     ],
     highlights: ["Placeholder: locally owned", "Placeholder: free written quotes", "Placeholder: crews that clean up"],
+    image: { file: "about.svg", alt: "Placeholder photo: a crew truck and trailer at a job site", width: 1200, height: 900 },
   },
 
   contact: {

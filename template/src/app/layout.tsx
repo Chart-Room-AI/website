@@ -1,22 +1,26 @@
 import type { Metadata } from "next";
 import { clientConfig } from "@config/index";
 import { activeDesign } from "@designs/index";
+import { resolveSiteUrl } from "@/lib/site-url";
 import { fontClassNames, themeStyle } from "@/lib/theme";
 import "./globals.css";
 
 const { business, seo, sample } = clientConfig;
+// Previews and placeholder domains use the deployment's own URL so og:image
+// resolves (src/lib/site-url.ts).
+const siteUrl = resolveSiteUrl(seo.siteUrl);
 
 // Favicon (icon.tsx) and Open Graph image (opengraph-image.tsx) are generated
 // from the same config, next to this file.
 export const metadata: Metadata = {
-  metadataBase: new URL(seo.siteUrl),
+  metadataBase: siteUrl,
   title: { default: seo.title, template: `%s | ${business.name}` },
   description: seo.description,
   alternates: { canonical: "/" },
   openGraph: {
     title: seo.title,
     description: seo.description,
-    url: seo.siteUrl,
+    url: siteUrl,
     siteName: business.name,
     locale: seo.locale,
     type: "website",

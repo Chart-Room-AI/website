@@ -3,7 +3,7 @@ import { QUOTE_ENDPOINT, QUOTE_FIELDS } from "@/lib/quote-form";
 import type { ClientConfig } from "@config/schema";
 
 const inputClass =
-  "min-h-12 rounded-md border border-border bg-white px-4 text-base font-normal text-foreground shadow-sm";
+  "min-h-12 rounded-md border border-foreground/55 bg-white px-4 text-base font-normal text-foreground shadow-sm";
 
 /** Classic design's quote form. Posts to the shared /api/contact route. */
 export function QuoteForm({ config }: { config: ClientConfig }) {
