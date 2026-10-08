@@ -27,6 +27,7 @@ npm run lint && npm run typecheck
 npm run check-config                 # validate the active config, brand kit and assets
 npm run validate-kit -- kit.json [--assets public/clients/<client-id>]
 npm run kit-schema                   # regenerate config/brand-kit.schema.json
+npm run test-kit                     # brand kit rule tests (fonts, contrast, defaults)
 ```
 
 `CLIENT_CONFIG` picks the client config **at build time** (inlined by `next.config.ts`).
@@ -61,7 +62,7 @@ out-of-spec asset fails the build and names the exact field, for example:
 | `src/lib/mail/` | Email providers for the quote form, keyed by `contact.provider`. |
 | `src/lib/theme.ts` | Turns the brand kit into the CSS variables behind the theme tokens. |
 | `src/lib/site-url.ts` | The origin for `metadataBase`, canonical and Open Graph URLs (see "Site URL on previews"). |
-| `scripts/` | `check-config`, `validate-kit`, `kit-schema`. |
+| `scripts/` | `check-config`, `validate-kit`, `kit-schema`, `kit-tests` (`npm run test-kit`). |
 | `public/clients/<id>/` | That client's logo, swatch and photos. |
 
 ## Brand kit
@@ -98,11 +99,13 @@ can't silently drop a value. Editors can validate against
 | `palette.accent` | hex | **yes** | `"#d9822b"` (quote buttons, highlights) |
 | `palette.surface` | hex | **yes** | `"#f7f5ef"` (page background) |
 | `palette.text` | hex | **yes** | `"#1f2a22"` (body text) |
-| `palette.muted` | hex | no (derived) | `"#55615a"` (secondary text) |
-| `palette.border` | hex | no (derived) | `"#dcd8cc"` (cards, inputs) |
+| `palette.secondary` | hex | no (primary 10% over surface) | `"#e3ebf5"` (secondary buttons, badges/chips, icon tiles) |
+| `palette.card` | hex | no (white 60% over surface) | `"#ffffff"` (card backgrounds) |
+| `palette.muted` | hex | no (text 72% over surface) | `"#55615a"` (secondary text) |
+| `palette.border` | hex | no (text 15% over surface) | `"#dcd8cc"` (card and section outlines) |
 | `palette.success` / `warning` / `danger` | hex | no (`#2e7d32` / `#b26a00` / `#b3261e`) | status colors |
-| `fonts.heading.family` | string, a supported family (below) | **yes** | `"Fraunces"` |
-| `fonts.heading.category` | `serif` \| `sans-serif` \| `display` | no, but recommended | `"display"` |
+| `fonts.heading.family` | one of the 18 supported families (below); any casing, normalized | **yes** | `"Fraunces"` |
+| `fonts.heading.category` | `serif` \| `sans-serif` \| `display` | no (metadata only) | `"display"` |
 | `fonts.body.family` / `fonts.body.category` | same as heading | family **yes** | `"Inter"`, `"sans-serif"` |
 | `logo.variant` | `wordmark` \| `icon` \| `combo` | **yes** | `"combo"` |
 | `logo.showName` | boolean | **yes** | `true` shows the business name beside the logo in the header |
@@ -130,8 +133,13 @@ them at or near that ratio and keep the subject centered). The rest of `imageDir
 (mood, style, subjects, avoid) and `swatch` are metadata for photo selection; the site
 doesn't render them.
 
+Every text color pair must pass WCAG AA or the kit fails (see "Contrast" below).
+
 **Derived, not in the kit:** text color on `primary` and `accent` (white or near-black,
-whichever contrasts better), `muted`/`border` defaults, the favicon (`logo.icon`, else
+whichever contrasts better), text on `secondary` (`primary` if it reaches 4.5:1, else white
+or near-black), dimmed text on `primary` (80% on-primary if it still reaches 4.5:1), small
+primary-colored text such as links and labels (`primary` if it reaches 4.5:1 on surface and
+card, else `text`), the optional palette defaults, the favicon (`logo.icon`, else
 `logo.onLight` when `variant` is `icon`, else the business initials on `primary`), and the
 Open Graph image (1200x630, `primary` background, `logo.onDark` if present, name, tagline).
 
@@ -144,10 +152,19 @@ call Google). Supported families, all variable fonts:
 - **serif:** Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond
 - **display:** Fraunces, Playfair Display, Oswald
 
-Names match case-insensitively. An unsupported family maps to a close name match
-(`"Garamond"` → EB Garamond), else to its `category` default (serif → Lora, sans-serif →
-Inter, display → Fraunces), and `validate-kit` prints a note. An unsupported family with no
-close match and no `category` is an error. To add a font, add it to
+**Fonts are strict.** `family` must be one of these 18 names. Matching is case-insensitive
+and extra spaces are ignored, and the casing is normalized (`"playfair display"` →
+`Playfair Display`). Anything else, including near names like `"Garamond"` or
+`"Inter Tight"`, is an error in `validate-kit` and in the build. The message lists the
+supported families for the given `category`, or all of them by category:
+
+```
+✗ kit.json: 1 problem(s)
+  - fonts.body.family: Unsupported font "Comic Neue". Supported sans-serif fonts: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway
+```
+
+`category` is optional metadata. It never changes which font loads; a mismatch only prints
+a note. The JSON Schema lists the exact names as an `enum`. To add a font, add it to
 `config/font-catalog.ts` and `src/lib/fonts.ts`.
 
 ### Icons
@@ -184,7 +201,8 @@ Components use neutral Tailwind tokens only; values come from the brand kit:
 |---|---|
 | `primary`, `accent`, `surface` | `palette.primary`, `palette.accent`, `palette.surface` |
 | `foreground` | `palette.text` |
-| `on-primary`, `on-accent` | derived for contrast |
+| `secondary`, `card` | `palette.secondary`, `palette.card` (defaults above) |
+| `on-primary`, `on-accent`, `on-secondary`, `on-primary-muted`, `primary-ink` | derived for contrast |
 | `muted`, `border`, `success`, `warning`, `danger` | optional palette extras (defaults above) |
 | `font-heading`, `font-sans` | `fonts.heading`, `fonts.body` |
 
@@ -192,22 +210,36 @@ Don't add client-specific colors or copy to components; put them in the config o
 
 ### Contrast
 
-`check-config` (every build) and `validate-kit` measure the text/background pairs the
-classic design uses (`config/contrast.ts`) against WCAG AA and print a warning for any that
-fail, without failing the build:
+`check-config` (every build) and `validate-kit` measure every pair below against WCAG AA
+(`config/contrast.ts`, using the derived colors the theme actually renders) and print
+each pair with its ratio. **Text pairs are errors:** if one fails, `validate-kit` exits 1
+and the build fails. Non-text pairs print a warning.
 
-| Pair | Minimum |
-|---|---|
-| text on surface; text at 70% on surface; muted on surface | 4.5:1 |
-| primary on surface (headings, links, labels) | 4.5:1 |
-| on-primary on primary; on-primary at 75% on primary | 4.5:1 |
-| on-accent on accent (quote buttons) | 4.5:1 |
-| input border (text at 55% on white) | 3:1 |
+| Pair | Minimum | Level |
+|---|---|---|
+| text on surface, muted on surface | 4.5:1 | error |
+| text on card, muted on card | 4.5:1 | error |
+| on-primary on primary | 4.5:1 | error |
+| on-accent on accent | 4.5:1 | error |
+| on-secondary on secondary | 4.5:1 | error |
+| primary on surface, primary on card (large display headings) | 3:1 | error |
+| border on surface | 3:1 | warning |
+| input border (text 55% on white), focus ring on surface and on primary | 3:1 | warning |
 
-`on-primary` and `on-accent` are derived (white or near-black, whichever contrasts more).
-Rating stars use `accent` but are decorative: the rating is also shown and announced as
-text. Focus rings are two-tone (a surface gap plus a text-colored outline, on-primary on
-primary bands), so they stay visible on any palette.
+```
+  contrast (WCAG AA):
+    ok   text on surface                      13.63:1  (min 4.5:1)  #1f2a22 on #f7f5ef
+    …
+    warn border on surface (non-text)          1.30:1  (min 3.0:1)  #dcd8cc on #f7f5ef
+✓ … (contrast: 9/9 text pairs pass, 1 non-text warning(s))
+```
+
+The classic design draws all secondary text in `muted`, dimmed text on primary bands in
+`on-primary-muted`, and small primary-colored text in `primary-ink`, so the checked pairs
+cover what renders. Card borders are decorative (cards also have a shadow), so a low
+`border` ratio is only a warning. Rating stars use `accent` but are decorative: the rating
+is also shown and announced as text. Focus rings are two-tone (a surface gap plus a
+text-colored outline, on-primary on primary bands).
 
 ## Site URL on previews
 

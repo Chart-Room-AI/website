@@ -11,23 +11,23 @@ export function QuoteForm({ config }: { config: ClientConfig }) {
   return (
     <form action={QUOTE_ENDPOINT} method="POST" className="relative grid gap-4">
       <FormGuards />
-      <label className="grid gap-2 text-sm font-semibold text-primary">
+      <label className="grid gap-2 text-sm font-semibold text-primary-ink">
         Name
         <input required name={name.name} maxLength={name.max} autoComplete="name" className={inputClass} />
       </label>
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="grid gap-2 text-sm font-semibold text-primary">
+        <label className="grid gap-2 text-sm font-semibold text-primary-ink">
           Email
           <input required type="email" name={email.name} maxLength={email.max} autoComplete="email" className={inputClass} />
         </label>
-        <label className="grid gap-2 text-sm font-semibold text-primary">
+        <label className="grid gap-2 text-sm font-semibold text-primary-ink">
           <span>
             Phone <span className="font-normal text-muted">(optional)</span>
           </span>
           <input type="tel" name={phone.name} maxLength={phone.max} autoComplete="tel" className={inputClass} />
         </label>
       </div>
-      <label className="grid gap-2 text-sm font-semibold text-primary">
+      <label className="grid gap-2 text-sm font-semibold text-primary-ink">
         Service
         <select name={service.name} defaultValue="" className={inputClass}>
           <option value="">Not sure yet</option>
@@ -38,7 +38,7 @@ export function QuoteForm({ config }: { config: ClientConfig }) {
           ))}
         </select>
       </label>
-      <label className="grid gap-2 text-sm font-semibold text-primary">
+      <label className="grid gap-2 text-sm font-semibold text-primary-ink">
         What do you need?
         <textarea
           required

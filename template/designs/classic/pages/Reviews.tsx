@@ -45,7 +45,7 @@ export function Reviews({ config }: DesignPageProps) {
                 <ul className="flex flex-wrap gap-3">
                   {sites.map((site) => (
                     <li key={site.url}>
-                      <ButtonLink href={site.url} variant="outline">
+                      <ButtonLink href={site.url} variant="secondary">
                         Read reviews on {site.label}
                         <span aria-hidden>↗</span>
                       </ButtonLink>
@@ -59,12 +59,12 @@ export function Reviews({ config }: DesignPageProps) {
             <ul className="mt-10 gap-6 sm:columns-2 lg:columns-3">
               {reviews.map((review) => (
                 <li key={review.author + review.text} className="mb-6 break-inside-avoid">
-                  <figure className="rounded-xl border border-border bg-white/60 p-6 shadow-sm">
+                  <figure className="rounded-xl border border-border bg-card p-6 shadow-sm">
                     <Stars rating={review.rating} />
                     <blockquote className="mt-3 leading-relaxed">“{review.text}”</blockquote>
-                    <figcaption className="mt-4 text-sm font-semibold text-primary">
+                    <figcaption className="mt-4 text-sm font-semibold text-primary-ink">
                       {review.author}
-                      {review.location ? <span className="font-normal text-foreground/70"> · {review.location}</span> : null}
+                      {review.location ? <span className="font-normal text-muted"> · {review.location}</span> : null}
                     </figcaption>
                   </figure>
                 </li>

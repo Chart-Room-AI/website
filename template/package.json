@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "check-config": "tsx scripts/check-config.ts",
     "validate-kit": "tsx scripts/validate-kit.ts",
-    "kit-schema": "tsx scripts/kit-schema.ts"
+    "kit-schema": "tsx scripts/kit-schema.ts",
+    "test-kit": "tsx scripts/kit-tests.ts"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

@@ -34,7 +34,7 @@ export function Footer({ config }: { config: ClientConfig }) {
             />
           ) : null}
           <p className="font-heading text-xl font-semibold">{business.name}</p>
-          <p className="mt-2 text-sm text-on-primary/75">{business.tagline}</p>
+          <p className="mt-2 text-sm text-on-primary-muted">{business.tagline}</p>
           {social.length > 0 ? (
             <ul className="mt-4 flex flex-wrap gap-3 text-sm">
               {social.map((link) => (
@@ -49,7 +49,7 @@ export function Footer({ config }: { config: ClientConfig }) {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-on-primary/70">Contact</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-on-primary-muted">Contact</h2>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
               <a href={telHref(contact.phone)} className="font-semibold hover:underline">
@@ -62,7 +62,7 @@ export function Footer({ config }: { config: ClientConfig }) {
               </a>
             </li>
             <li>
-              <address className="not-italic text-on-primary/80">
+              <address className="not-italic text-on-primary-muted">
                 {formatAddress(contact.address).map((line) => (
                   <span key={line} className="block">
                     {line}
@@ -72,7 +72,7 @@ export function Footer({ config }: { config: ClientConfig }) {
             </li>
           </ul>
           {contact.hours.length > 0 ? (
-            <ul className="mt-3 space-y-1 text-sm text-on-primary/80">
+            <ul className="mt-3 space-y-1 text-sm text-on-primary-muted">
               {contact.hours.map((line) => (
                 <li key={line}>{line}</li>
               ))}
@@ -81,8 +81,8 @@ export function Footer({ config }: { config: ClientConfig }) {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-on-primary/70">Service area</h2>
-          <p className="mt-3 text-sm text-on-primary/80">{serviceArea.summary}</p>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-on-primary-muted">Service area</h2>
+          <p className="mt-3 text-sm text-on-primary-muted">{serviceArea.summary}</p>
           <ul className="mt-3 flex flex-wrap gap-2 text-sm">
             {serviceArea.places.map((place) => (
               <li key={place} className="rounded-full border border-on-primary/25 px-3 py-1">
@@ -93,7 +93,7 @@ export function Footer({ config }: { config: ClientConfig }) {
         </div>
 
         <nav aria-label="Footer">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-on-primary/70">Pages</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-on-primary-muted">Pages</h2>
           <ul className="mt-3 space-y-2 text-sm">
             {sitePages.map((page) => (
               <li key={page.href}>
@@ -106,7 +106,7 @@ export function Footer({ config }: { config: ClientConfig }) {
         </nav>
       </Container>
       <div className="border-t border-on-primary/15">
-        <Container className="py-5 text-xs text-on-primary/70">
+        <Container className="py-5 text-xs text-on-primary-muted">
           © {new Date().getFullYear()} {business.name}
         </Container>
       </div>

@@ -34,7 +34,7 @@ export function About({ config }: DesignPageProps) {
             <SectionHeading title="At a glance" />
             <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {about.highlights.map((item) => (
-                <li key={item} className="flex gap-3 rounded-xl bg-surface p-5 font-semibold text-primary shadow-sm">
+                <li key={item} className="flex gap-3 rounded-xl bg-surface p-5 font-semibold text-primary-ink shadow-sm">
                   <UiIcon name="check-circle" iconStyle={iconStyle} size={24} className="shrink-0" />
                   <span>{item}</span>
                 </li>
@@ -50,29 +50,29 @@ export function About({ config }: DesignPageProps) {
             <SectionHeading title="Where we work">{serviceArea.summary}</SectionHeading>
             <ul className="mt-6 flex flex-wrap gap-2">
               {serviceArea.places.map((place) => (
-                <li key={place} className="rounded-full border border-primary/25 px-4 py-2 text-sm font-semibold text-primary">
+                <li key={place} className="rounded-full border border-on-secondary/15 bg-secondary px-4 py-2 text-sm font-semibold text-on-secondary">
                   {place}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border border-border bg-white/60 p-6 shadow-sm md:p-8">
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
             <h2 className="font-heading text-2xl font-semibold text-primary">Get in touch</h2>
             <ul className="mt-5 space-y-4">
               <li className="flex gap-3">
-                <UiIcon name="phone" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary" />
-                <a href={telHref(contact.phone)} className="font-semibold text-primary underline-offset-4 hover:underline">
+                <UiIcon name="phone" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary-ink" />
+                <a href={telHref(contact.phone)} className="font-semibold text-primary-ink underline-offset-4 hover:underline">
                   {contact.phone}
                 </a>
               </li>
               <li className="flex gap-3">
-                <UiIcon name="envelope" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary" />
-                <a href={`mailto:${contact.email}`} className="font-semibold text-primary underline-offset-4 hover:underline">
+                <UiIcon name="envelope" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary-ink" />
+                <a href={`mailto:${contact.email}`} className="font-semibold text-primary-ink underline-offset-4 hover:underline">
                   {contact.email}
                 </a>
               </li>
               <li className="flex gap-3">
-                <UiIcon name="map-pin" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary" />
+                <UiIcon name="map-pin" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary-ink" />
                 <address className="not-italic">
                   {formatAddress(contact.address).map((line) => (
                     <span key={line} className="block">
@@ -83,7 +83,7 @@ export function About({ config }: DesignPageProps) {
               </li>
               {contact.hours.length > 0 ? (
                 <li className="flex gap-3">
-                  <UiIcon name="clock" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary" />
+                  <UiIcon name="clock" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary-ink" />
                   <ul className="text-muted">
                     {contact.hours.map((line) => (
                       <li key={line}>{line}</li>

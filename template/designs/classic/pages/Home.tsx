@@ -14,11 +14,11 @@ export function Home({ config }: DesignPageProps) {
       <section className="bg-primary text-on-primary">
         <Container className="grid items-center gap-10 py-14 md:grid-cols-[1.1fr_0.9fr] md:py-20">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-on-primary/75">{business.tagline}</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-on-primary-muted">{business.tagline}</p>
             <h1 className="mt-4 text-balance font-heading text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
               {hero.headline}
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-on-primary/85">{hero.subheadline}</p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-on-primary-muted">{hero.subheadline}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href={quoteHref}>{hero.quoteCtaLabel}</ButtonLink>
               <ButtonLink href={call} variant="outline-light">
@@ -43,19 +43,19 @@ export function Home({ config }: DesignPageProps) {
           <SectionHeading eyebrow="What we do" title="Services" />
           <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {services.slice(0, 4).map((service) => (
-              <li key={service.name} className="rounded-xl border border-border bg-white/60 p-6 shadow-sm">
+              <li key={service.name} className="rounded-xl border border-border bg-card p-6 shadow-sm">
                 {service.icon ? (
-                  <span className={`mb-4 inline-flex h-12 w-12 items-center justify-center bg-primary/10 text-primary ${iconTileClass(brand.iconStyle)}`}>
+                  <span className={`mb-4 inline-flex h-12 w-12 items-center justify-center bg-secondary text-on-secondary ${iconTileClass(brand.iconStyle)}`}>
                     <ServiceIcon name={service.icon} iconStyle={brand.iconStyle} />
                   </span>
                 ) : null}
                 <h3 className="font-heading text-xl font-semibold text-primary">{service.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/80">{service.summary}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{service.summary}</p>
               </li>
             ))}
           </ul>
           <div className="mt-8">
-            <ButtonLink href="/services" variant="outline">
+            <ButtonLink href="/services" variant="secondary">
               See all services
             </ButtonLink>
           </div>
@@ -72,15 +72,15 @@ export function Home({ config }: DesignPageProps) {
                 <li key={review.author + review.text} className="flex flex-col rounded-xl bg-surface p-6 shadow-sm">
                   <Stars rating={review.rating} />
                   <blockquote className="mt-3 flex-1 leading-relaxed">“{review.text}”</blockquote>
-                  <p className="mt-4 text-sm font-semibold text-primary">
+                  <p className="mt-4 text-sm font-semibold text-primary-ink">
                     {review.author}
-                    {review.location ? <span className="font-normal text-foreground/70"> · {review.location}</span> : null}
+                    {review.location ? <span className="font-normal text-muted"> · {review.location}</span> : null}
                   </p>
                 </li>
               ))}
             </ul>
             <div className="mt-8">
-              <ButtonLink href="/reviews" variant="outline">
+              <ButtonLink href="/reviews" variant="secondary">
                 Read more reviews
               </ButtonLink>
             </div>

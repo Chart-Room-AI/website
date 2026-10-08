@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import type { ClientConfig } from "@config/schema";
-import { readableOn } from "@config/contrast";
-import { resolveFont } from "@config/font-catalog";
+import { readableOn, resolvePalette } from "@config/contrast";
+import { findFont } from "@config/font-catalog";
 import { fonts } from "./fonts";
 
 export { readableOn };
@@ -13,35 +13,41 @@ const genericStacks = {
 
 /** The supported fonts this brand kit resolves to (unsupported picks map by category). */
 export function brandFonts(config: ClientConfig) {
-  // The schema guarantees both resolve; see brand-kit.ts.
-  const heading = resolveFont(config.brand.fonts.heading)!.font;
-  const body = resolveFont(config.brand.fonts.body)!.font;
+  // The schema only accepts supported families; see brand-kit.ts.
+  const heading = findFont(config.brand.fonts.heading.family)!;
+  const body = findFont(config.brand.fonts.body.family)!;
   return { heading, body };
 }
 
 /**
  * CSS variables behind the neutral theme tokens in src/app/globals.css.
- * Every value comes from the brand kit: palette roles, derived "on-*" text
- * colors, optional extras (with defaults), and fonts.
+ * Every value comes from the brand kit via resolvePalette (config/contrast.ts):
+ * palette roles, optional extras with their defaults, derived on-* colors, and
+ * fonts. The contrast checks measure exactly these values.
  */
 export function themeStyle(config: ClientConfig): CSSProperties {
-  const { palette } = config.brand;
+  const p = resolvePalette(config.brand.palette);
   const { heading, body } = brandFonts(config);
   const vars: Record<string, string> = {
-    "--brand-primary": palette.primary,
-    "--brand-on-primary": readableOn(palette.primary),
-    "--brand-accent": palette.accent,
-    "--brand-on-accent": readableOn(palette.accent),
-    "--brand-surface": palette.surface,
-    "--brand-text": palette.text,
+    "--brand-primary": p.primary,
+    "--brand-on-primary": p.onPrimary,
+    "--brand-on-primary-muted": p.onPrimaryMuted,
+    "--brand-primary-ink": p.primaryInk,
+    "--brand-accent": p.accent,
+    "--brand-on-accent": p.onAccent,
+    "--brand-secondary": p.secondary,
+    "--brand-on-secondary": p.onSecondary,
+    "--brand-surface": p.surface,
+    "--brand-card": p.card,
+    "--brand-text": p.text,
+    "--brand-muted": p.muted,
+    "--brand-border": p.border,
+    "--brand-success": p.success,
+    "--brand-warning": p.warning,
+    "--brand-danger": p.danger,
     "--brand-font-heading": `var(${fonts[heading.id].cssVar}), ${genericStacks[heading.generic]}`,
     "--brand-font-body": `var(${fonts[body.id].cssVar}), ${genericStacks[body.generic]}`,
   };
-  // Optional palette extras; globals.css supplies derived defaults when absent.
-  for (const role of ["muted", "border", "success", "warning", "danger"] as const) {
-    const value = palette[role];
-    if (value) vars[`--brand-${role}`] = value;
-  }
   return vars as CSSProperties;
 }
 

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { assetFilePattern } from "./assets";
-import { fontCategories, resolveFont, supportedFonts } from "./font-catalog";
+import { findFont, fontCategories, supportedFamilies, unsupportedFontMessage } from "./font-catalog";
 
 /**
  * Brand kit: the output of the client branding interview (Beacon), embedded
@@ -33,23 +33,21 @@ const fontChoice = z
     family: z
       .string()
       .min(1)
-      .describe(`Font family name. Supported: ${supportedFonts.map((font) => font.family).join(", ")}`),
+      // JSON Schema lists the exact names; the validator also accepts any casing.
+      .meta({ enum: supportedFamilies })
+      .describe(`One of the supported families: ${supportedFamilies.join(", ")}. The template also accepts any casing and normalizes it`),
     category: z
       .enum(fontCategories)
       .optional()
-      .describe("Fallback category. If family isn't supported, a close name match is used, else this category's default (serif: Lora, sans-serif: Inter, display: Fraunces)"),
+      .describe("Optional metadata (serif, sans-serif or display). It never changes which font loads"),
   })
   .superRefine((choice, ctx) => {
-    if (!resolveFont(choice)) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["family"],
-        message:
-          `Unsupported font "${choice.family}". Use one of: ${supportedFonts.map((font) => font.family).join(", ")}; ` +
-          `or add "category" (serif, sans-serif or display) to map it to the nearest supported font`,
-      });
+    if (!findFont(choice.family)) {
+      ctx.addIssue({ code: "custom", path: ["family"], message: unsupportedFontMessage(choice.family, choice.category) });
     }
-  });
+  })
+  // Normalize casing, e.g. "playfair display" -> "Playfair Display".
+  .overwrite((choice) => ({ ...choice, family: findFont(choice.family)?.family ?? choice.family }));
 
 const aspectRatio = z
   .string()
@@ -77,13 +75,17 @@ export const brandKitSchema = z.strictObject({
       accent: hex.describe("Call-to-action color: quote buttons, highlights"),
       surface: hex.describe("Page background"),
       text: hex.describe("Body text on the surface color"),
+      secondary: hex
+        .optional()
+        .describe("Secondary buttons, badges and icon tiles. Default: a light tint of primary (primary 10% over surface)"),
+      card: hex.optional().describe("Card background. Default: white at 60% over surface"),
       muted: hex.optional().describe("Secondary text. Default: text blended toward surface"),
       border: hex.optional().describe("Card and input borders. Default: text at low contrast"),
       success: hex.optional().describe("Success messages. Default #2e7d32"),
       warning: hex.optional().describe("Warnings. Default #b26a00"),
       danger: hex.optional().describe("Errors. Default #b3261e"),
     })
-    .describe("Named color roles. Text on primary/accent is computed for contrast"),
+    .describe("Named color roles. Text on primary/accent/secondary is derived; text pairs must meet WCAG AA (see README)"),
 
   fonts: z.strictObject({
     heading: fontChoice,

@@ -33,38 +33,30 @@ export const supportedFonts = [
 export type FontId = (typeof supportedFonts)[number]["id"];
 export type SupportedFont = (typeof supportedFonts)[number];
 
-/** Nearest supported font for each fallback category. */
-export const categoryDefaults: Record<FontCategory, FontId> = {
-  "sans-serif": "inter",
-  serif: "lora",
-  display: "fraunces",
-};
+export const supportedFamilies = supportedFonts.map((font) => font.family);
 
 const normalize = (family: string) => family.trim().toLowerCase().replace(/\s+/g, " ");
 
+/**
+ * Strict lookup: case-insensitive exact match on the family name (extra spaces
+ * ignored). There is no nearest-match or category fallback; anything else is
+ * an error in validate-kit and in the build.
+ */
 export function findFont(family: string): SupportedFont | undefined {
   return supportedFonts.find((font) => normalize(font.family) === normalize(family));
 }
 
-export type FontChoice = { family: string; category?: FontCategory };
+/** "Inter, Source Sans 3, …" for one category. */
+export function familiesIn(category: FontCategory): string {
+  return supportedFonts
+    .filter((font) => font.category === category)
+    .map((font) => font.family)
+    .join(", ");
+}
 
-/**
- * Resolves a brand-kit font choice to a supported font. An unsupported family
- * maps to a close name match, else to its category's default; `mappedFrom`
- * records the original pick.
- * Returns undefined only when the family is unsupported and has no category.
- */
-export function resolveFont(choice: FontChoice): { font: SupportedFont; mappedFrom?: string } | undefined {
-  const exact = findFont(choice.family);
-  if (exact) return { font: exact };
-  // Close name match, e.g. "Garamond" -> "EB Garamond", "Inter Tight" -> "Inter".
-  const wanted = normalize(choice.family);
-  const close =
-    wanted.length >= 4
-      ? supportedFonts.find((font) => normalize(font.family).includes(wanted) || wanted.includes(normalize(font.family)))
-      : undefined;
-  if (close) return { font: close, mappedFrom: choice.family };
-  if (!choice.category) return undefined;
-  const fallback = supportedFonts.find((font) => font.id === categoryDefaults[choice.category!])!;
-  return { font: fallback, mappedFrom: choice.family };
+/** Error text for an unsupported family, listing the supported families for its category (or all, by category). */
+export function unsupportedFontMessage(family: string, category?: FontCategory): string {
+  if (category) return `Unsupported font "${family}". Supported ${category} fonts: ${familiesIn(category)}`;
+  const all = fontCategories.map((c) => `${c}: ${familiesIn(c)}`).join("; ");
+  return `Unsupported font "${family}". Supported fonts by category: ${all}`;
 }

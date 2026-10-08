@@ -18,13 +18,13 @@ export function Contact({ config }: DesignPageProps) {
             Call {contact.phone}
           </ButtonLink>
           <p className="flex items-center gap-2">
-            <UiIcon name="envelope" iconStyle={iconStyle} className="text-primary" />
-            <a href={`mailto:${contact.email}`} className="font-semibold text-primary hover:underline">
+            <UiIcon name="envelope" iconStyle={iconStyle} className="text-primary-ink" />
+            <a href={`mailto:${contact.email}`} className="font-semibold text-primary-ink hover:underline">
               {contact.email}
             </a>
           </p>
           <div className="flex gap-2">
-            <UiIcon name="map-pin" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary" />
+            <UiIcon name="map-pin" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary-ink" />
             <address className="not-italic">
               {formatAddress(contact.address).map((line) => (
                 <span key={line} className="block">
@@ -35,7 +35,7 @@ export function Contact({ config }: DesignPageProps) {
           </div>
           {contact.hours.length > 0 ? (
             <div className="flex gap-2 text-sm text-muted">
-              <UiIcon name="clock" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary" />
+              <UiIcon name="clock" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary-ink" />
               <ul>
                 {contact.hours.map((line) => (
                   <li key={line}>{line}</li>
@@ -45,7 +45,7 @@ export function Contact({ config }: DesignPageProps) {
           ) : null}
           <p className="text-sm text-muted">Service area: {serviceArea.places.join(", ")}</p>
         </div>
-        <section id="quote" className="scroll-mt-28 rounded-xl border border-border bg-white/60 p-6 shadow-sm md:p-8">
+        <section id="quote" className="scroll-mt-28 rounded-xl border border-border bg-card p-6 shadow-sm md:p-8">
           <h2 className="font-heading text-2xl font-semibold text-primary">{hero.quoteCtaLabel}</h2>
           <p className="mt-2 mb-6 text-muted">Tell us about the job and we&apos;ll get back to you.</p>
           <QuoteForm config={config} />

@@ -3,9 +3,8 @@
 /*
  * Neutral theme tokens. Values are set per client on <html> from the brand kit
  * (src/lib/theme.ts). The fallbacks below are plain grays so a missing value is
- * obvious rather than borrowing another brand's colors. Optional palette
- * extras (muted, border, success, warning, danger) default to values derived
- * from the required roles.
+ * obvious rather than borrowing another brand's colors. theme.ts always sets
+ * every variable (optional palette roles get their derived defaults there).
  */
 :root {
   --brand-primary: #333333;
@@ -14,8 +13,13 @@
   --brand-on-accent: #ffffff;
   --brand-surface: #ffffff;
   --brand-text: #111111;
-  --brand-muted: color-mix(in oklab, var(--brand-text) 72%, var(--brand-surface));
-  --brand-border: color-mix(in oklab, var(--brand-text) 15%, var(--brand-surface));
+  --brand-on-primary-muted: #ffffff;
+  --brand-primary-ink: #333333;
+  --brand-secondary: #eeeeee;
+  --brand-on-secondary: #333333;
+  --brand-card: #ffffff;
+  --brand-muted: #555555;
+  --brand-border: #dddddd;
   --brand-success: #2e7d32;
   --brand-warning: #b26a00;
   --brand-danger: #b3261e;
@@ -27,6 +31,11 @@
 @theme inline {
   --color-primary: var(--brand-primary);
   --color-on-primary: var(--brand-on-primary);
+  --color-on-primary-muted: var(--brand-on-primary-muted);
+  --color-primary-ink: var(--brand-primary-ink);
+  --color-secondary: var(--brand-secondary);
+  --color-on-secondary: var(--brand-on-secondary);
+  --color-card: var(--brand-card);
   --color-accent: var(--brand-accent);
   --color-on-accent: var(--brand-on-accent);
   --color-surface: var(--brand-surface);

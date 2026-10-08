@@ -75,6 +75,16 @@
           "pattern": "^#[0-9a-fA-F]{6}$",
           "description": "Body text on the surface color"
         },
+        "secondary": {
+          "description": "Secondary buttons, badges and icon tiles. Default: a light tint of primary (primary 10% over surface)",
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "card": {
+          "description": "Card background. Default: white at 60% over surface",
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
         "muted": {
           "description": "Secondary text. Default: text blended toward surface",
           "type": "string",
@@ -108,7 +118,7 @@
         "text"
       ],
       "additionalProperties": false,
-      "description": "Named color roles. Text on primary/accent is computed for contrast"
+      "description": "Named color roles. Text on primary/accent/secondary is derived; text pairs must meet WCAG AA (see README)"
     },
     "fonts": {
       "type": "object",
@@ -119,10 +129,30 @@
             "family": {
               "type": "string",
               "minLength": 1,
-              "description": "Font family name. Supported: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway, Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond, Fraunces, Playfair Display, Oswald"
+              "enum": [
+                "Inter",
+                "Source Sans 3",
+                "Open Sans",
+                "Roboto",
+                "Nunito",
+                "DM Sans",
+                "Work Sans",
+                "Manrope",
+                "Montserrat",
+                "Raleway",
+                "Lora",
+                "Merriweather",
+                "Libre Baskerville",
+                "Roboto Slab",
+                "EB Garamond",
+                "Fraunces",
+                "Playfair Display",
+                "Oswald"
+              ],
+              "description": "One of the supported families: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway, Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond, Fraunces, Playfair Display, Oswald. The template also accepts any casing and normalizes it"
             },
             "category": {
-              "description": "Fallback category. If family isn't supported, a close name match is used, else this category's default (serif: Lora, sans-serif: Inter, display: Fraunces)",
+              "description": "Optional metadata (serif, sans-serif or display). It never changes which font loads",
               "type": "string",
               "enum": [
                 "serif",
@@ -142,10 +172,30 @@
             "family": {
               "type": "string",
               "minLength": 1,
-              "description": "Font family name. Supported: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway, Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond, Fraunces, Playfair Display, Oswald"
+              "enum": [
+                "Inter",
+                "Source Sans 3",
+                "Open Sans",
+                "Roboto",
+                "Nunito",
+                "DM Sans",
+                "Work Sans",
+                "Manrope",
+                "Montserrat",
+                "Raleway",
+                "Lora",
+                "Merriweather",
+                "Libre Baskerville",
+                "Roboto Slab",
+                "EB Garamond",
+                "Fraunces",
+                "Playfair Display",
+                "Oswald"
+              ],
+              "description": "One of the supported families: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway, Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond, Fraunces, Playfair Display, Oswald. The template also accepts any casing and normalizes it"
             },
             "category": {
-              "description": "Fallback category. If family isn't supported, a close name match is used, else this category's default (serif: Lora, sans-serif: Inter, display: Fraunces)",
+              "description": "Optional metadata (serif, sans-serif or display). It never changes which font loads",
               "type": "string",
               "enum": [
                 "serif",

@@ -6,7 +6,7 @@
 import { join } from "node:path";
 import { clientConfigs, DEFAULT_CLIENT_CONFIG } from "../config/clients";
 import { clientConfigSchema } from "../config/schema";
-import { checkAssets, contrastSummary, contrastWarnings, describeIssues, fontNotes, kitAssets } from "./report";
+import { checkAssets, contrastResult, describeIssues, fontNotes, kitAssets } from "./report";
 
 const id = process.env.CLIENT_CONFIG?.trim() || DEFAULT_CLIENT_CONFIG;
 const input = clientConfigs[id];
@@ -30,11 +30,18 @@ const photos = [
 ];
 const problems = checkAssets([...kitAssets(config.brand, "brand"), ...photos], join(process.cwd(), "public", "clients", id));
 
+const contrast = contrastResult(config.brand);
 for (const note of fontNotes(config.brand, "brand.fonts")) console.log(`  note: ${note}`);
-for (const warning of contrastWarnings(config.brand, "brand.palette")) console.log(`  warning: ${warning}`);
-if (problems.length > 0) {
-  console.error(`✗ Client config "${id}": ${problems.length} asset problem(s)`);
-  for (const line of problems) console.error(`  - ${line}`);
+console.log("  contrast (WCAG AA):");
+for (const line of contrast.lines) console.log(`    ${line}`);
+
+const failures = [
+  ...contrast.errors.map((check) => `brand.palette: ${check.pair} is ${check.ratio.toFixed(2)}:1, needs ${check.min}:1`),
+  ...problems,
+];
+if (failures.length > 0) {
+  console.error(`✗ Client config "${id}": ${failures.length} problem(s)`);
+  for (const line of failures) console.error(`  - ${line}`);
   process.exit(1);
 }
-console.log(`✓ Client config "${id}" is valid (design: ${config.design}; brand kit v${config.brand.kitVersion}; assets OK; ${contrastSummary(config.brand)})`);
+console.log(`✓ Client config "${id}" is valid (design: ${config.design}; brand kit v${config.brand.kitVersion}; assets OK; ${contrast.summary})`);

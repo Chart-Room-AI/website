@@ -13,13 +13,13 @@ export function ThankYou({ config }: DesignPageProps) {
       <h1 className="mt-6 font-heading text-4xl font-semibold text-primary">Thanks. We got your request.</h1>
       <p className="mt-4 text-lg text-muted">
         We&apos;ll get back to you soon. If it&apos;s urgent, call us at{" "}
-        <a href={telHref(contact.phone)} className="font-semibold text-primary underline-offset-4 hover:underline">
+        <a href={telHref(contact.phone)} className="font-semibold text-primary-ink underline-offset-4 hover:underline">
           {contact.phone}
         </a>
         .
       </p>
       <div className="mt-8 flex justify-center">
-        <ButtonLink href="/" variant="outline">
+        <ButtonLink href="/" variant="secondary">
           Back to home
         </ButtonLink>
       </div>
@@ -39,10 +39,10 @@ export function QuoteError({ config }: DesignPageProps) {
       </p>
       <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
         <ButtonLink href={quoteHref}>Try the form again</ButtonLink>
-        <ButtonLink href={telHref(contact.phone)} variant="outline">
+        <ButtonLink href={telHref(contact.phone)} variant="secondary">
           Call {contact.phone}
         </ButtonLink>
-        <ButtonLink href={`mailto:${contact.email}`} variant="outline">
+        <ButtonLink href={`mailto:${contact.email}`} variant="secondary">
           Email {contact.email}
         </ButtonLink>
       </div>

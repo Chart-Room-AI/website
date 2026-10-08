@@ -28,7 +28,7 @@ export function Header({ config }: { config: ClientConfig }) {
 
         <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
           {sitePages.slice(1).map((page) => (
-            <Link key={page.href} href={page.href} className="text-sm font-medium text-foreground/80 hover:text-primary">
+            <Link key={page.href} href={page.href} className="text-sm font-medium text-muted hover:text-primary-ink">
               {page.label}
             </Link>
           ))}
@@ -38,7 +38,7 @@ export function Header({ config }: { config: ClientConfig }) {
           <a
             href={telHref(contact.phone)}
             aria-label={`Call ${contact.phone}`}
-            className="inline-flex min-h-10 items-center rounded-md bg-primary px-3 text-sm font-semibold text-on-primary sm:bg-transparent sm:px-0 sm:text-primary sm:hover:underline"
+            className="inline-flex min-h-10 items-center rounded-md bg-primary px-3 text-sm font-semibold text-on-primary sm:bg-transparent sm:px-0 sm:text-primary-ink sm:hover:underline"
           >
             <span className="sm:hidden">Call</span>
             <span className="hidden sm:inline">{contact.phone}</span>
@@ -49,7 +49,7 @@ export function Header({ config }: { config: ClientConfig }) {
             </ButtonLink>
           </div>
           <details className="relative lg:hidden">
-            <summary className="flex min-h-10 cursor-pointer list-none items-center rounded-md border border-primary/20 px-3 text-sm font-semibold text-primary [&::-webkit-details-marker]:hidden">
+            <summary className="flex min-h-10 cursor-pointer list-none items-center rounded-md border border-primary/20 px-3 text-sm font-semibold text-primary-ink [&::-webkit-details-marker]:hidden">
               Menu
             </summary>
             <nav aria-label="Mobile" className="absolute right-0 mt-2 grid w-56 gap-1 rounded-lg border border-primary/10 bg-surface p-2 shadow-xl">
@@ -58,7 +58,7 @@ export function Header({ config }: { config: ClientConfig }) {
                   {page.label}
                 </Link>
               ))}
-              <a href={telHref(contact.phone)} className="rounded px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/5">
+              <a href={telHref(contact.phone)} className="rounded px-3 py-2 text-sm font-semibold text-primary-ink hover:bg-primary/5">
                 Call {contact.phone}
               </a>
             </nav>

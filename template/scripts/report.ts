@@ -4,7 +4,7 @@ import type { z } from "zod";
 import { assetRules, type AssetKind } from "../config/assets";
 import type { BrandAsset, BrandKit } from "../config/brand-kit";
 import { contrastReport } from "../config/contrast";
-import { resolveFont } from "../config/font-catalog";
+import { findFont } from "../config/font-catalog";
 
 /** One line per zod issue: "path: problem", with missing fields called out. */
 export function describeIssues(error: z.ZodError, prefix = ""): string[] {
@@ -20,12 +20,13 @@ export function describeIssues(error: z.ZodError, prefix = ""): string[] {
   });
 }
 
-/** Notes for fonts that were mapped to the nearest supported font. */
+/** Notes when a font's optional `category` doesn't match the family's catalog category (metadata only). */
 export function fontNotes(kit: BrandKit, prefix = "fonts"): string[] {
   return (["heading", "body"] as const).flatMap((role) => {
-    const resolved = resolveFont(kit.fonts[role]);
-    return resolved?.mappedFrom
-      ? [`${prefix}.${role}: "${resolved.mappedFrom}" isn't supported; using "${resolved.font.family}"`]
+    const choice = kit.fonts[role];
+    const font = findFont(choice.family);
+    return font && choice.category && choice.category !== font.category
+      ? [`${prefix}.${role}.category is "${choice.category}" but ${font.family} is ${font.category} (category is metadata only)`]
       : [];
   });
 }
@@ -67,18 +68,20 @@ export function checkAssets(refs: AssetRef[], dir: string): string[] {
 }
 
 /**
- * Contrast warnings for the text/background pairs the classic design uses
- * (config/contrast.ts). Warnings don't fail the build: the kit is the client's
- * brand, but a failing pair should be raised with them before launch.
+ * Contrast table for the pairs the classic design uses (config/contrast.ts).
+ * Every pair is printed with its ratio; text pairs below their minimum are
+ * errors (validate-kit and the build fail), non-text pairs are warnings.
  */
-export function contrastWarnings(kit: BrandKit, prefix = "palette"): string[] {
-  return contrastReport(kit.palette)
-    .filter((check) => !check.ok)
-    .map((check) => `${prefix}: ${check.pair} is ${check.ratio}:1 (${check.fg} on ${check.bg}); WCAG AA needs ${check.min}:1`);
-}
-
-/** One-line contrast summary, e.g. "contrast AA 8/8". */
-export function contrastSummary(kit: BrandKit): string {
+export function contrastResult(kit: BrandKit) {
   const report = contrastReport(kit.palette);
-  return `contrast AA ${report.filter((check) => check.ok).length}/${report.length}`;
+  const width = Math.max(...report.map((check) => check.pair.length));
+  const lines = report.map((check) => {
+    const status = check.ok ? "ok  " : check.level === "error" ? "FAIL" : "warn";
+    return `${status} ${check.pair.padEnd(width)}  ${check.ratio.toFixed(2).padStart(5)}:1  (min ${check.min.toFixed(1)}:1)  ${check.fg} on ${check.bg}`;
+  });
+  const errors = report.filter((check) => !check.ok && check.level === "error");
+  const warnings = report.filter((check) => !check.ok && check.level === "warning");
+  const textPairs = report.filter((check) => check.level === "error");
+  const summary = `contrast: ${textPairs.length - errors.length}/${textPairs.length} text pairs pass${warnings.length ? `, ${warnings.length} non-text warning(s)` : ""}`;
+  return { lines, errors, warnings, summary };
 }

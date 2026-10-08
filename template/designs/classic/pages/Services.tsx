@@ -20,7 +20,7 @@ export function Services({ config }: DesignPageProps) {
                 <li key={service.name}>
                   <a
                     href={`#${slugify(service.name)}`}
-                    className="inline-flex min-h-11 items-center rounded-full border border-primary/25 px-4 text-sm font-semibold text-primary transition hover:bg-primary/5"
+                    className="inline-flex min-h-11 items-center rounded-full border border-on-secondary/15 bg-secondary px-4 text-sm font-semibold text-on-secondary transition hover:brightness-95"
                   >
                     {service.name}
                   </a>
@@ -40,11 +40,11 @@ export function Services({ config }: DesignPageProps) {
                 <article
                   id={id}
                   aria-labelledby={`${id}-title`}
-                  className="grid scroll-mt-28 gap-6 rounded-2xl border border-border bg-white/60 p-6 shadow-sm md:grid-cols-[auto_1fr_1fr] md:p-8"
+                  className="grid scroll-mt-28 gap-6 rounded-2xl border border-border bg-card p-6 shadow-sm md:grid-cols-[auto_1fr_1fr] md:p-8"
                 >
                   {service.icon ? (
                     <span
-                      className={`inline-flex h-14 w-14 items-center justify-center bg-primary/10 text-primary ${iconTileClass(iconStyle)}`}
+                      className={`inline-flex h-14 w-14 items-center justify-center bg-secondary text-on-secondary ${iconTileClass(iconStyle)}`}
                     >
                       <ServiceIcon name={service.icon} iconStyle={iconStyle} size={32} />
                     </span>
@@ -55,10 +55,10 @@ export function Services({ config }: DesignPageProps) {
                     <h2 id={`${id}-title`} className="font-heading text-2xl font-semibold text-primary md:text-3xl">
                       {service.name}
                     </h2>
-                    <p className="mt-3 text-lg leading-relaxed text-foreground/80">{service.summary}</p>
+                    <p className="mt-3 text-lg leading-relaxed text-muted">{service.summary}</p>
                     <Link
                       href={quoteHref}
-                      className="mt-5 inline-flex min-h-11 items-center gap-1 font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
+                      className="mt-5 inline-flex min-h-11 items-center gap-1 font-semibold text-primary-ink underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
                     >
                       Ask about {service.name.toLowerCase()}
                       <span aria-hidden>→</span>
@@ -70,7 +70,7 @@ export function Services({ config }: DesignPageProps) {
                       <ul className="mt-3 space-y-2">
                         {service.details.map((detail) => (
                           <li key={detail} className="flex gap-2">
-                            <UiIcon name="check-circle" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary" />
+                            <UiIcon name="check-circle" iconStyle={iconStyle} className="mt-0.5 shrink-0 text-primary-ink" />
                             <span>{detail}</span>
                           </li>
                         ))}
