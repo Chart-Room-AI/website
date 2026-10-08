@@ -4,8 +4,17 @@ A separate Next.js app (Next.js 16, React 19, Tailwind 4) for small-business cli
 sites, built from one per-client config file. It lives next to `web/` but shares no
 code with it: **chartroomai.com (`web/`) is not touched by anything here.**
 
-Tracking: epic #20, ticket #21. Each client site is planned as its own Vercel project
-on the `chart-room` team with **Root Directory `template/`** (needs Marc's OK first).
+Tracking: epic #20, ticket #21.
+
+## Vercel
+
+Template previews build on the Vercel project **`client-template`** (team `chart-room`,
+approved by Marc on Oct 8, 2026): Root Directory `template`, framework Next.js, Node 24.x,
+`CLIENT_CONFIG=dry-creek-sample` (Production + Preview), and Ignored Build Step
+`git diff --quiet HEAD^ HEAD -- .` so it only builds when `template/` changes. It has no
+custom domain. The `website` project (Root Directory `web/`, chartroomai.com) is separate.
+Each real client later gets its own project with these settings plus its own
+`CLIENT_CONFIG` and domain.
 
 ## Run it
 
