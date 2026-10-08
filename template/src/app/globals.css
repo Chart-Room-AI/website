@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/*
+ * Neutral theme tokens. Values are set per client on <html> from the client
+ * config (src/lib/theme.ts); the fallbacks below are plain grays so a missing
+ * value is obvious rather than borrowing another brand's colors.
+ */
+:root {
+  --brand-primary: #333333;
+  --brand-on-primary: #ffffff;
+  --brand-accent: #666666;
+  --brand-on-accent: #ffffff;
+  --brand-surface: #ffffff;
+  --brand-text: #111111;
+  scroll-behavior: smooth;
+}
+
+@theme inline {
+  --color-primary: var(--brand-primary);
+  --color-on-primary: var(--brand-on-primary);
+  --color-accent: var(--brand-accent);
+  --color-on-accent: var(--brand-on-accent);
+  --color-surface: var(--brand-surface);
+  --color-foreground: var(--brand-text);
+  --font-heading: var(--brand-font-heading), ui-serif, Georgia, serif;
+  --font-sans: var(--brand-font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--brand-surface);
+  color: var(--brand-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
+}
