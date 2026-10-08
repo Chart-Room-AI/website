@@ -111,7 +111,7 @@ can't silently drop a value. Editors can validate against
 | `iconStyle.style` | `outline` \| `solid` \| `duotone` | no (`outline`) | `"duotone"` |
 | `iconStyle.weight` | `thin` \| `light` \| `regular` \| `bold` | no (`regular`) | stroke weight for `outline` |
 | `iconStyle.corners` | `rounded` \| `sharp` | no (`rounded`) | shape of the tiles behind icons |
-| `imageDirection.mood` | string | **yes** (if `imageDirection` given) | `"warm, tidy, neighborly"` |
+| `imageDirection.mood` | string | **yes** (`imageDirection` itself is required) | `"warm, tidy, neighborly"` |
 | `imageDirection.style` | string | no | `"natural daylight, minimal editing"` |
 | `imageDirection.subjects` | string[] | no (`[]`) | `["finished patios", "crews at work"]` |
 | `imageDirection.avoid` | string[] | no (`[]`) | `["stock models", "license plates"]` |
@@ -123,7 +123,7 @@ lowercase file name in `template/public/clients/<client-id>/` (no folders); `wid
 `height` are the intrinsic size in px (for SVG, the viewBox size).
 
 `imageDirection` and `swatch` are metadata for now: the photo/gallery pipeline will use
-them later. `imageDirection` is optional as a whole.
+them later.
 
 **Derived, not in the kit:** text color on `primary` and `accent` (white or near-black,
 whichever contrasts better), `muted`/`border` defaults, the favicon (`logo.icon`, else
