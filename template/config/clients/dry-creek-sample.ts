@@ -1,4 +1,7 @@
+import type { BrandKitInput } from "../brand-kit";
 import type { ClientConfigInput } from "../schema";
+// The brand block is a brand kit JSON, dropped in unchanged (validated at build).
+import brandKit from "./dry-creek-sample.brand-kit.json";
 
 /**
  * SAMPLE / PLACEHOLDER CONTENT. NOT REAL CLIENT DATA.
@@ -9,11 +12,11 @@ import type { ClientConfigInput } from "../schema";
  *
  * - Phone numbers use the reserved fictional 555-01xx range.
  * - Emails and links use example.com.
- * - Images are local placeholder SVGs in public/clients/dry-creek-sample/.
+ * - Images are local placeholder SVGs in public/clients/dry-creek-sample/,
+ *   referenced by file name.
+ * - The brand kit (dry-creek-sample.brand-kit.json) is a placeholder too.
  * - Reviews are invented placeholders, not real customer reviews.
  */
-const img = "/clients/dry-creek-sample";
-
 export const dryCreekSample = {
   id: "dry-creek-sample",
   sample: true,
@@ -24,53 +27,48 @@ export const dryCreekSample = {
     tagline: "Lawn care and landscaping in Midlothian, VA",
   },
 
-  brand: {
-    colors: {
-      primary: "#2f5d3a",
-      accent: "#d9822b",
-      surface: "#f7f5ef",
-      text: "#1f2a22",
-    },
-    logo: { src: `${img}/logo.svg`, alt: "Dry Creek Landscaping logo (placeholder)", width: 48, height: 48 },
-    fonts: { heading: "fraunces", body: "inter" },
-  },
+  brand: brandKit as BrandKitInput,
 
   hero: {
     headline: "A yard you're proud to come home to.",
     subheadline:
       "Placeholder copy: mowing, planting, mulch and hardscapes for homes around Midlothian, done on schedule by a crew that cleans up after itself.",
-    image: { src: `${img}/hero.svg`, alt: "Placeholder photo: a freshly edged front lawn", width: 1200, height: 900 },
+    image: { file: "hero.svg", alt: "Placeholder photo: a freshly edged front lawn", width: 1200, height: 900 },
     quoteCtaLabel: "Get a free quote",
   },
 
   services: [
     {
       name: "Lawn care",
+      icon: "leaf",
       summary: "Weekly or biweekly mowing, edging and blowing, with seasonal fertilizing.",
       details: ["Mowing, edging and cleanup", "Fertilizer and weed control", "Fall aeration and overseeding"],
     },
     {
       name: "Planting and beds",
+      icon: "plant",
       summary: "New beds, shrubs and seasonal color planned for Virginia's climate.",
       details: ["Bed design and install", "Shrub and tree planting", "Seasonal annuals"],
     },
     {
       name: "Mulch and cleanups",
+      icon: "broom",
       summary: "Spring and fall cleanups, fresh mulch and leaf removal.",
       details: ["Spring and fall cleanups", "Mulch delivery and spreading", "Leaf removal"],
     },
     {
       name: "Hardscapes",
+      icon: "wall",
       summary: "Patios, walkways and retaining walls built to last.",
       details: ["Paver patios and walkways", "Retaining walls", "Drainage fixes"],
     },
   ],
 
   gallery: [
-    { src: `${img}/gallery-1.svg`, alt: "Placeholder photo: paver patio", width: 800, height: 600, caption: "Paver patio (placeholder)" },
-    { src: `${img}/gallery-2.svg`, alt: "Placeholder photo: front bed planting", width: 800, height: 600, caption: "Front bed planting (placeholder)" },
-    { src: `${img}/gallery-3.svg`, alt: "Placeholder photo: fresh mulch", width: 800, height: 600, caption: "Spring mulch (placeholder)" },
-    { src: `${img}/gallery-4.svg`, alt: "Placeholder photo: retaining wall", width: 800, height: 600, caption: "Retaining wall (placeholder)" },
+    { file: "gallery-1.svg", alt: "Placeholder photo: paver patio", width: 800, height: 600, caption: "Paver patio (placeholder)" },
+    { file: "gallery-2.svg", alt: "Placeholder photo: front bed planting", width: 800, height: 600, caption: "Front bed planting (placeholder)" },
+    { file: "gallery-3.svg", alt: "Placeholder photo: fresh mulch", width: 800, height: 600, caption: "Spring mulch (placeholder)" },
+    { file: "gallery-4.svg", alt: "Placeholder photo: retaining wall", width: 800, height: 600, caption: "Retaining wall (placeholder)" },
   ],
 
   reviews: [

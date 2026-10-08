@@ -1,11 +1,13 @@
 import Image from "next/image";
+import { assetUrl } from "@config/assets";
 import { telHref } from "@/lib/contact";
+import { iconTileClass, ServiceIcon } from "@/lib/icons";
 import { quoteHref } from "@/lib/routes";
 import type { DesignPageProps } from "../../types";
 import { ButtonLink, Container, SectionHeading, Stars } from "../components/ui";
 
 export function Home({ config }: DesignPageProps) {
-  const { business, hero, services, reviews, serviceArea, contact } = config;
+  const { business, brand, hero, services, reviews, serviceArea, contact } = config;
   const call = telHref(contact.phone);
 
   return (
@@ -27,7 +29,7 @@ export function Home({ config }: DesignPageProps) {
             </div>
           </div>
           <Image
-            src={hero.image.src}
+            src={assetUrl(config.id, hero.image.file)}
             alt={hero.image.alt}
             width={hero.image.width}
             height={hero.image.height}
@@ -43,7 +45,12 @@ export function Home({ config }: DesignPageProps) {
           <SectionHeading eyebrow="What we do" title="Services" />
           <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {services.slice(0, 4).map((service) => (
-              <li key={service.name} className="rounded-xl border border-primary/10 bg-white/60 p-6 shadow-sm">
+              <li key={service.name} className="rounded-xl border border-border bg-white/60 p-6 shadow-sm">
+                {service.icon ? (
+                  <span className={`mb-4 inline-flex h-12 w-12 items-center justify-center bg-primary/10 text-primary ${iconTileClass(brand.iconStyle)}`}>
+                    <ServiceIcon name={service.icon} iconStyle={brand.iconStyle} />
+                  </span>
+                ) : null}
                 <h3 className="font-heading text-xl font-semibold text-primary">{service.name}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-foreground/80">{service.summary}</p>
               </li>

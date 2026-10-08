@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { assetUrl } from "@config/assets";
 import type { ClientConfig } from "@config/schema";
 import { telHref } from "@/lib/contact";
 import { quoteHref, sitePages } from "@/lib/routes";
@@ -7,12 +8,22 @@ import { ButtonLink, Container } from "./ui";
 
 export function Header({ config }: { config: ClientConfig }) {
   const { business, brand, contact } = config;
+  const logo = brand.logo.onLight;
   return (
     <header className="sticky top-0 z-40 border-b border-primary/10 bg-surface/95 backdrop-blur">
       <Container className="flex items-center justify-between gap-4 py-3">
         <Link href="/" className="flex items-center gap-3">
-          <Image src={brand.logo.src} alt={brand.logo.alt} width={brand.logo.width} height={brand.logo.height} className="h-10 w-auto" priority />
-          <span className="font-heading text-lg font-semibold leading-tight text-primary md:text-xl">{business.name}</span>
+          <Image
+            src={assetUrl(config.id, logo.file)}
+            alt={brand.logo.showName ? brand.logo.alt : business.name}
+            width={logo.width}
+            height={logo.height}
+            className="h-10 w-auto"
+            priority
+          />
+          {brand.logo.showName ? (
+            <span className="font-heading text-lg font-semibold leading-tight text-primary md:text-xl">{business.name}</span>
+          ) : null}
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">

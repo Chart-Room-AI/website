@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { assetUrl } from "@config/assets";
 import type { DesignPageProps } from "../../types";
 import { Container, PageHeader } from "../components/ui";
 
@@ -10,9 +11,9 @@ export function Gallery({ config }: DesignPageProps) {
       <Container className="py-14">
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {config.gallery.map((photo) => (
-            <li key={photo.src}>
+            <li key={photo.file}>
               <figure>
-                <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} className="h-auto w-full rounded-xl" />
+                <Image src={assetUrl(config.id, photo.file)} alt={photo.alt} width={photo.width} height={photo.height} className="h-auto w-full rounded-xl" />
                 {photo.caption ? <figcaption className="mt-2 text-sm text-foreground/70">{photo.caption}</figcaption> : null}
               </figure>
             </li>

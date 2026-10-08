@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 /*
- * Neutral theme tokens. Values are set per client on <html> from the client
- * config (src/lib/theme.ts); the fallbacks below are plain grays so a missing
- * value is obvious rather than borrowing another brand's colors.
+ * Neutral theme tokens. Values are set per client on <html> from the brand kit
+ * (src/lib/theme.ts). The fallbacks below are plain grays so a missing value is
+ * obvious rather than borrowing another brand's colors. Optional palette
+ * extras (muted, border, success, warning, danger) default to values derived
+ * from the required roles.
  */
 :root {
   --brand-primary: #333333;
@@ -12,6 +14,13 @@
   --brand-on-accent: #ffffff;
   --brand-surface: #ffffff;
   --brand-text: #111111;
+  --brand-muted: color-mix(in oklab, var(--brand-text) 72%, var(--brand-surface));
+  --brand-border: color-mix(in oklab, var(--brand-text) 15%, var(--brand-surface));
+  --brand-success: #2e7d32;
+  --brand-warning: #b26a00;
+  --brand-danger: #b3261e;
+  --brand-font-heading: ui-serif, Georgia, serif;
+  --brand-font-body: ui-sans-serif, system-ui, sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -22,8 +31,13 @@
   --color-on-accent: var(--brand-on-accent);
   --color-surface: var(--brand-surface);
   --color-foreground: var(--brand-text);
-  --font-heading: var(--brand-font-heading), ui-serif, Georgia, serif;
-  --font-sans: var(--brand-font-body), ui-sans-serif, system-ui, sans-serif;
+  --color-muted: var(--brand-muted);
+  --color-border: var(--brand-border);
+  --color-success: var(--brand-success);
+  --color-warning: var(--brand-warning);
+  --color-danger: var(--brand-danger);
+  --font-heading: var(--brand-font-heading);
+  --font-sans: var(--brand-font-body);
 }
 
 body {

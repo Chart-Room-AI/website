@@ -11,6 +11,10 @@ export type DesignPages = {
   Reviews: ComponentType<DesignPageProps>;
   About: ComponentType<DesignPageProps>;
   Contact: ComponentType<DesignPageProps>;
+  /** /contact/thank-you, after a quote request. */
+  ThankYou: ComponentType<DesignPageProps>;
+  /** /contact/error; its retry link must go back to /contact#quote. */
+  QuoteError: ComponentType<DesignPageProps>;
 };
 
 export type Design = {

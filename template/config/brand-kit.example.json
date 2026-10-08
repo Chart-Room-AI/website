@@ -1,0 +1,45 @@
+{
+  "$schema": "./brand-kit.schema.json",
+  "kitVersion": 1,
+  "source": {
+    "generator": "beacon-brand-interview",
+    "generatorVersion": "0.1.0",
+    "interviewId": "example-0001",
+    "createdAt": "2026-10-08T19:00:00-04:00",
+    "approvedBy": "Example Client",
+    "approvedAt": "2026-10-09T10:00:00-04:00",
+    "notes": "Example kit for the template docs. Fictional business; files are illustrative."
+  },
+  "palette": {
+    "primary": "#1d4e89",
+    "accent": "#f2a541",
+    "surface": "#fbfaf7",
+    "text": "#1b1f24",
+    "muted": "#5b6470",
+    "border": "#d9dde3",
+    "success": "#2e7d32",
+    "warning": "#b26a00",
+    "danger": "#b3261e"
+  },
+  "fonts": {
+    "heading": { "family": "Playfair Display", "category": "display" },
+    "body": { "family": "Source Sans 3", "category": "sans-serif" }
+  },
+  "logo": {
+    "variant": "combo",
+    "showName": false,
+    "alt": "Example Co. logo",
+    "onLight": { "file": "logo.svg", "width": 240, "height": 64 },
+    "onDark": { "file": "logo-on-dark.svg", "width": 240, "height": 64 },
+    "icon": { "file": "icon.svg", "width": 512, "height": 512 }
+  },
+  "iconStyle": { "style": "duotone", "weight": "regular", "corners": "sharp" },
+  "imageDirection": {
+    "mood": "Confident and friendly; real crews, real homes.",
+    "style": "Bright daylight, slightly wide, true-to-life color.",
+    "subjects": ["Finished work", "Before-and-after pairs", "Team at work"],
+    "avoid": ["Stock photos", "Faces without consent", "House numbers", "License plates"],
+    "aspectRatios": { "hero": "16:9", "gallery": "4:3" }
+  },
+  "swatch": { "file": "swatch.png", "width": 1200, "height": 400 }
+}

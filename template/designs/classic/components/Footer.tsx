@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { assetUrl } from "@config/assets";
 import type { ClientConfig } from "@config/schema";
 import { formatAddress, telHref } from "@/lib/contact";
 import { sitePages } from "@/lib/routes";
@@ -16,11 +18,21 @@ const socialLabels: Record<ClientConfig["social"][number]["platform"], string> =
 };
 
 export function Footer({ config }: { config: ClientConfig }) {
-  const { business, contact, serviceArea, social } = config;
+  const { business, brand, contact, serviceArea, social } = config;
+  const darkLogo = brand.logo.onDark;
   return (
     <footer className="mt-auto bg-primary text-on-primary">
       <Container className="grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-1">
+          {darkLogo ? (
+            <Image
+              src={assetUrl(config.id, darkLogo.file)}
+              alt=""
+              width={darkLogo.width}
+              height={darkLogo.height}
+              className="mb-3 h-10 w-auto"
+            />
+          ) : null}
           <p className="font-heading text-xl font-semibold">{business.name}</p>
           <p className="mt-2 text-sm text-on-primary/75">{business.tagline}</p>
           {social.length > 0 ? (

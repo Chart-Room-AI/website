@@ -1,8 +1,6 @@
 import { z } from "zod";
-import { clientConfigs } from "./clients";
+import { clientConfigs, DEFAULT_CLIENT_CONFIG } from "./clients";
 import { clientConfigSchema, type ClientConfig } from "./schema";
-
-export const DEFAULT_CLIENT_CONFIG = "dry-creek-sample";
 
 /**
  * Loads and validates the active client config. CLIENT_CONFIG is inlined at
@@ -30,4 +28,5 @@ function loadClientConfig(): ClientConfig {
 }
 
 export const clientConfig = loadClientConfig();
+export { DEFAULT_CLIENT_CONFIG };
 export type { ClientConfig } from "./schema";

@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { assetFilePattern } from "./assets";
+import { brandKitSchema } from "./brand-kit";
+import { serviceIconNames } from "./icon-names";
 
 /**
  * Per-client site config schema.
@@ -6,6 +9,9 @@ import { z } from "zod";
  * Every design reads this same shape, so a client can switch designs without
  * re-entering content. All page text and brand settings live in the client's
  * config file; components must not hard-code client-specific copy.
+ *
+ * Branding lives in `brand`, which is a brand kit (config/brand-kit.ts) embedded
+ * unchanged. `design` is separate, so any brand kit works with any design.
  *
  * No secrets belong here. Email credentials and bot-protection keys stay in
  * Vercel environment variables (see template/README.md).
@@ -15,21 +21,9 @@ import { z } from "zod";
 export const designIds = ["classic"] as const;
 export type DesignId = (typeof designIds)[number];
 
-/** Fonts a config may pick. Each id is loaded in src/lib/fonts.ts. */
-export const fontIds = ["inter", "source-sans-3", "montserrat", "lora", "fraunces"] as const;
-export type FontId = (typeof fontIds)[number];
-
-const hexColor = z
-  .string()
-  .regex(/^#[0-9a-fA-F]{6}$/, "Use a 6-digit hex color, for example #2f5d3a");
-
-/** Site-relative path to a file in template/public, for example /clients/acme/logo.svg. */
-const publicPath = z
-  .string()
-  .regex(/^\/[^/]/, "Use a path that starts with / and points into template/public");
-
+/** A photo in template/public/clients/<client-id>/, referenced by bare file name. */
 const image = z.object({
-  src: publicPath,
+  file: z.string().regex(assetFilePattern, "Use a lowercase file name like hero.jpg, no folders"),
   alt: z.string().min(1),
   width: z.number().int().positive(),
   height: z.number().int().positive(),
@@ -69,23 +63,8 @@ export const clientConfigSchema = z.object({
     tagline: z.string().min(1),
   }),
 
-  brand: z.object({
-    colors: z.object({
-      /** Main brand color: header, hero, headings. */
-      primary: hexColor,
-      /** Call-to-action color: quote buttons, highlights. */
-      accent: hexColor,
-      /** Page background. */
-      surface: hexColor,
-      /** Body text on the surface color. */
-      text: hexColor,
-    }),
-    logo: image,
-    fonts: z.object({
-      heading: z.enum(fontIds),
-      body: z.enum(fontIds),
-    }),
-  }),
+  /** The client's brand kit, exactly as the branding interview emits it. */
+  brand: brandKitSchema,
 
   hero: z.object({
     headline: z.string().min(1),
@@ -100,6 +79,7 @@ export const clientConfigSchema = z.object({
         name: z.string().min(1),
         summary: z.string().min(1),
         details: z.array(z.string().min(1)).default([]),
+        icon: z.enum(serviceIconNames).optional(),
       }),
     )
     .min(1),
