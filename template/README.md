@@ -16,6 +16,10 @@ custom domain. The `website` project (Root Directory `web/`, chartroomai.com) is
 Each real client later gets its own project with these settings plus its own
 `CLIENT_CONFIG` and domain.
 
+**Proof branches** (orphan `proof/*` branches that only hold screenshots and logs) must
+include `web/vercel.json` and `template/vercel.json`, each `{"git":{"deploymentEnabled":false}}`.
+Without them, both Vercel projects try to build the branch and fail, because it has no app.
+
 ## Run it
 
 ```bash
