@@ -35,6 +35,24 @@ export type SupportedFont = (typeof supportedFonts)[number];
 
 export const supportedFamilies = supportedFonts.map((font) => font.family);
 
+/**
+ * JSON Schema `pattern` accepting exactly the supported families in any casing,
+ * with the same whitespace tolerance as findFont (outer spaces ignored, runs of
+ * spaces between words). Generated from supportedFonts so the JSON Schema and
+ * the validator can't drift. JSON Schema patterns have no reliable (?i) flag,
+ * so each letter becomes a [Xx] class.
+ */
+export const familyPattern = (() => {
+  const escape = (ch: string) => (/[a-z]/i.test(ch) ? `[${ch.toUpperCase()}${ch.toLowerCase()}]` : ch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const families = supportedFamilies.map((family) =>
+    family
+      .split(" ")
+      .map((word) => [...word].map(escape).join(""))
+      .join("\\s+"),
+  );
+  return `^\\s*(?:${families.join("|")})\\s*$`;
+})();
+
 const normalize = (family: string) => family.trim().toLowerCase().replace(/\s+/g, " ");
 
 /**

@@ -6,10 +6,17 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { brandKitSchema, type BrandKitInput } from "../config/brand-kit";
 import { blend, contrastReport, resolvePalette } from "../config/contrast";
-import { familiesIn } from "../config/font-catalog";
+import { brandKitJsonSchemaText } from "../config/brand-kit-json-schema";
+import { familiesIn, findFont, supportedFamilies } from "../config/font-catalog";
 
 const example = JSON.parse(readFileSync(new URL("../config/brand-kit.example.json", import.meta.url), "utf8")) as BrandKitInput;
 const sample = JSON.parse(readFileSync(new URL("../config/clients/dry-creek-sample.brand-kit.json", import.meta.url), "utf8")) as BrandKitInput;
+
+const schemaPath = new URL("../config/brand-kit.schema.json", import.meta.url);
+const jsonSchemaText = readFileSync(schemaPath, "utf8");
+const jsonSchema = JSON.parse(jsonSchemaText);
+// JSON Schema patterns are ECMA-262 regexes (unanchored unless the pattern anchors itself).
+const familySchemas = (["heading", "body"] as const).map((role) => jsonSchema.properties.fonts.properties[role].properties.family);
 
 const withFonts = (heading: object, body: object) => ({ ...example, fonts: { heading, body } });
 const issues = (kit: unknown) => {
@@ -56,6 +63,24 @@ const tests: [string, () => void][] = [
   ["light primary fails the 3:1 heading check", () => {
     const failing = contrastReport({ ...example.palette, primary: "#b8c8e0" }).filter((c) => !c.ok).map((c) => c.pair);
     assert.ok(failing.includes("primary headings on surface (large)"));
+  }],
+  ["JSON Schema family pattern accepts any casing and rejects unsupported fonts (matches validate-kit)", () => {
+    for (const family of familySchemas) {
+      assert.equal(family.enum, undefined);
+      assert.deepEqual(family.examples, supportedFamilies);
+      const pattern = new RegExp(family.pattern, "u");
+      for (const name of ["inter", "INTER", "Inter", " source  SANS 3 ", "eb garamond", ...supportedFamilies]) {
+        assert.ok(pattern.test(name), `pattern should accept ${JSON.stringify(name)}`);
+        assert.ok(findFont(name), `validate-kit should accept ${JSON.stringify(name)}`);
+      }
+      for (const name of ["Comic Neue", "Garamond", "Inter Tight", "Interx", "Inter;", ""]) {
+        assert.ok(!pattern.test(name), `pattern should reject ${JSON.stringify(name)}`);
+        assert.equal(findFont(name), undefined, `validate-kit should reject ${JSON.stringify(name)}`);
+      }
+    }
+  }],
+  ["config/brand-kit.schema.json is up to date with the zod schema (run npm run kit-schema)", () => {
+    assert.equal(jsonSchemaText, brandKitJsonSchemaText());
   }],
   ["defaults: card = white 60% over surface, secondary = primary 10% over surface", () => {
     const p = resolvePalette({ primary: "#2f5d3a", accent: "#d9822b", surface: "#f7f5ef", text: "#1f2a22" });

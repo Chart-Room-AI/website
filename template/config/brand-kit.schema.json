@@ -129,7 +129,8 @@
             "family": {
               "type": "string",
               "minLength": 1,
-              "enum": [
+              "pattern": "^\\s*(?:[Ii][Nn][Tt][Ee][Rr]|[Ss][Oo][Uu][Rr][Cc][Ee]\\s+[Ss][Aa][Nn][Ss]\\s+3|[Oo][Pp][Ee][Nn]\\s+[Ss][Aa][Nn][Ss]|[Rr][Oo][Bb][Oo][Tt][Oo]|[Nn][Uu][Nn][Ii][Tt][Oo]|[Dd][Mm]\\s+[Ss][Aa][Nn][Ss]|[Ww][Oo][Rr][Kk]\\s+[Ss][Aa][Nn][Ss]|[Mm][Aa][Nn][Rr][Oo][Pp][Ee]|[Mm][Oo][Nn][Tt][Ss][Ee][Rr][Rr][Aa][Tt]|[Rr][Aa][Ll][Ee][Ww][Aa][Yy]|[Ll][Oo][Rr][Aa]|[Mm][Ee][Rr][Rr][Ii][Ww][Ee][Aa][Tt][Hh][Ee][Rr]|[Ll][Ii][Bb][Rr][Ee]\\s+[Bb][Aa][Ss][Kk][Ee][Rr][Vv][Ii][Ll][Ll][Ee]|[Rr][Oo][Bb][Oo][Tt][Oo]\\s+[Ss][Ll][Aa][Bb]|[Ee][Bb]\\s+[Gg][Aa][Rr][Aa][Mm][Oo][Nn][Dd]|[Ff][Rr][Aa][Uu][Nn][Cc][Ee][Ss]|[Pp][Ll][Aa][Yy][Ff][Aa][Ii][Rr]\\s+[Dd][Ii][Ss][Pp][Ll][Aa][Yy]|[Oo][Ss][Ww][Aa][Ll][Dd])\\s*$",
+              "examples": [
                 "Inter",
                 "Source Sans 3",
                 "Open Sans",
@@ -149,7 +150,7 @@
                 "Playfair Display",
                 "Oswald"
               ],
-              "description": "One of the supported families: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway, Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond, Fraunces, Playfair Display, Oswald. The template also accepts any casing and normalizes it"
+              "description": "One of the supported families: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway, Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond, Fraunces, Playfair Display, Oswald. Any casing is accepted and normalized; exact casing is recommended"
             },
             "category": {
               "description": "Optional metadata (serif, sans-serif or display). It never changes which font loads",
@@ -172,7 +173,8 @@
             "family": {
               "type": "string",
               "minLength": 1,
-              "enum": [
+              "pattern": "^\\s*(?:[Ii][Nn][Tt][Ee][Rr]|[Ss][Oo][Uu][Rr][Cc][Ee]\\s+[Ss][Aa][Nn][Ss]\\s+3|[Oo][Pp][Ee][Nn]\\s+[Ss][Aa][Nn][Ss]|[Rr][Oo][Bb][Oo][Tt][Oo]|[Nn][Uu][Nn][Ii][Tt][Oo]|[Dd][Mm]\\s+[Ss][Aa][Nn][Ss]|[Ww][Oo][Rr][Kk]\\s+[Ss][Aa][Nn][Ss]|[Mm][Aa][Nn][Rr][Oo][Pp][Ee]|[Mm][Oo][Nn][Tt][Ss][Ee][Rr][Rr][Aa][Tt]|[Rr][Aa][Ll][Ee][Ww][Aa][Yy]|[Ll][Oo][Rr][Aa]|[Mm][Ee][Rr][Rr][Ii][Ww][Ee][Aa][Tt][Hh][Ee][Rr]|[Ll][Ii][Bb][Rr][Ee]\\s+[Bb][Aa][Ss][Kk][Ee][Rr][Vv][Ii][Ll][Ll][Ee]|[Rr][Oo][Bb][Oo][Tt][Oo]\\s+[Ss][Ll][Aa][Bb]|[Ee][Bb]\\s+[Gg][Aa][Rr][Aa][Mm][Oo][Nn][Dd]|[Ff][Rr][Aa][Uu][Nn][Cc][Ee][Ss]|[Pp][Ll][Aa][Yy][Ff][Aa][Ii][Rr]\\s+[Dd][Ii][Ss][Pp][Ll][Aa][Yy]|[Oo][Ss][Ww][Aa][Ll][Dd])\\s*$",
+              "examples": [
                 "Inter",
                 "Source Sans 3",
                 "Open Sans",
@@ -192,7 +194,7 @@
                 "Playfair Display",
                 "Oswald"
               ],
-              "description": "One of the supported families: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway, Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond, Fraunces, Playfair Display, Oswald. The template also accepts any casing and normalizes it"
+              "description": "One of the supported families: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway, Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond, Fraunces, Playfair Display, Oswald. Any casing is accepted and normalized; exact casing is recommended"
             },
             "category": {
               "description": "Optional metadata (serif, sans-serif or display). It never changes which font loads",

@@ -47,7 +47,7 @@ out-of-spec asset fails the build and names the exact field, for example:
 |---|---|
 | `config/schema.ts` | Client config schema (zod) and types. Every design reads this shape. |
 | `config/brand-kit.ts` | **Brand kit** schema (zod). Embedded unchanged as `brand` in a client config. |
-| `config/brand-kit.schema.json` | The same schema as JSON Schema, for tools that emit kits (generated). |
+| `config/brand-kit.schema.json` | The same schema as JSON Schema, for tools that emit kits. Generated from the zod schema and font list (`npm run kit-schema`); `npm run test-kit` fails if it's stale. |
 | `config/brand-kit.example.json` | A complete example kit with every field. |
 | `config/font-catalog.ts` | Supported fonts and the fallback rules. |
 | `config/icon-names.ts` | Icon names a service can use. |
@@ -104,7 +104,7 @@ can't silently drop a value. Editors can validate against
 | `palette.muted` | hex | no (text 72% over surface) | `"#55615a"` (secondary text) |
 | `palette.border` | hex | no (text 15% over surface) | `"#dcd8cc"` (card and section outlines) |
 | `palette.success` / `warning` / `danger` | hex | no (`#2e7d32` / `#b26a00` / `#b3261e`) | status colors |
-| `fonts.heading.family` | one of the 18 supported families (below); any casing, normalized | **yes** | `"Fraunces"` |
+| `fonts.heading.family` | one of the 18 supported families (below); any casing is normalized, exact casing recommended | **yes** | `"Fraunces"` |
 | `fonts.heading.category` | `serif` \| `sans-serif` \| `display` | no (metadata only) | `"display"` |
 | `fonts.body.family` / `fonts.body.category` | same as heading | family **yes** | `"Inter"`, `"sans-serif"` |
 | `logo.variant` | `wordmark` \| `icon` \| `combo` | **yes** | `"combo"` |
@@ -164,7 +164,15 @@ supported families for the given `category`, or all of them by category:
 ```
 
 `category` is optional metadata. It never changes which font loads; a mismatch only prints
-a note. The JSON Schema lists the exact names as an `enum`. To add a font, add it to
+a note.
+
+**Casing:** the template normalizes casing, so `"inter"` loads Inter, but write the exact
+names shown above. In `brand-kit.schema.json`, `family` has a case-insensitive `pattern`
+generated from the font list (each letter as a `[Xx]` class, since JSON Schema patterns
+have no reliable case-insensitive flag) plus `examples` with the exact names. JSON Schema
+tools therefore accept and reject the same names as `validate-kit`.
+
+To add a font, add it to
 `config/font-catalog.ts` and `src/lib/fonts.ts`.
 
 ### Icons

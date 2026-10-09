@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { assetFilePattern } from "./assets";
-import { findFont, fontCategories, supportedFamilies, unsupportedFontMessage } from "./font-catalog";
+import { familyPattern, findFont, fontCategories, supportedFamilies, unsupportedFontMessage } from "./font-catalog";
 
 /**
  * Brand kit: the output of the client branding interview (Beacon), embedded
@@ -33,9 +33,12 @@ const fontChoice = z
     family: z
       .string()
       .min(1)
-      // JSON Schema lists the exact names; the validator also accepts any casing.
-      .meta({ enum: supportedFamilies })
-      .describe(`One of the supported families: ${supportedFamilies.join(", ")}. The template also accepts any casing and normalizes it`),
+      // JSON Schema: a case-insensitive pattern generated from the font list (so
+      // schema tools accept what validate-kit accepts), with exact names as examples.
+      .meta({ pattern: familyPattern, examples: [...supportedFamilies] })
+      .describe(
+        `One of the supported families: ${supportedFamilies.join(", ")}. Any casing is accepted and normalized; exact casing is recommended`,
+      ),
     category: z
       .enum(fontCategories)
       .optional()
