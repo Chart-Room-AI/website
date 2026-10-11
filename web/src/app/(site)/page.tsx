@@ -12,11 +12,13 @@ import {
   proofPoints,
   proofStories,
 } from "@/lib/site-content";
+import { pageUrlMetadata } from "@/lib/seo";
 
 export const metadata = {
   title: "Fractional AI Leadership for Regulated Financial Firms",
   description:
     "Unstick stalled AI initiatives with governed, production-ready AI transformation leadership from former CTO and CISO Marc Cheatham.",
+  ...pageUrlMetadata("/"),
 };
 
 export default function Home() {

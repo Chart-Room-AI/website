@@ -5,10 +5,12 @@ import { FeatureCard } from "@/components/FeatureCard";
 import { PageIntro } from "@/components/PageIntro";
 import { audience, brandImages } from "@/lib/site-content";
 import { siteConfig } from "@/lib/site-config";
+import { pageUrlMetadata } from "@/lib/seo";
 
 export const metadata = {
   title: "About",
   description: "About Chart Room AI and Marc Cheatham, Founder and Principal.",
+  ...pageUrlMetadata("/about"),
 };
 
 export default function AboutPage() {

@@ -3,10 +3,12 @@ import { CtaBand } from "@/components/CtaBand";
 import { FeatureCard } from "@/components/FeatureCard";
 import { PageIntro } from "@/components/PageIntro";
 import { brandImages, whyCards } from "@/lib/site-content";
+import { pageUrlMetadata } from "@/lib/seo";
 
 export const metadata = {
   title: "Why Chart Room AI",
   description: "Why regulated teams invite Chart Room AI for AI transformation leadership.",
+  ...pageUrlMetadata("/why-chart-room"),
 };
 
 export default function WhyChartRoomPage() {

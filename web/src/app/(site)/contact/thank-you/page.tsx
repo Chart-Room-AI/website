@@ -1,10 +1,12 @@
 import { CtaBand } from "@/components/CtaBand";
 import { PageIntro } from "@/components/PageIntro";
 import { siteConfig } from "@/lib/site-config";
+import { noIndexMetadata } from "@/lib/seo";
 
 export const metadata = {
   title: "Diagnostic Request Received",
   description: "Confirmation for a Chart Room AI diagnostic request.",
+  ...noIndexMetadata,
 };
 
 export default function ContactThankYouPage() {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { siteConfig } from "@/lib/site-config";
+import { seoDescription, siteOpenGraph, siteTitle } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,27 +9,16 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const seoDescription =
-  "Operator-led AI transformation for regulated financial firms that need governed, production-ready AI, DevOps modernization, and board-ready momentum.";
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Chart Room AI | Fractional AI Leadership for Regulated Financial Firms",
+    default: siteTitle,
     template: "%s | Chart Room AI",
   },
   description: seoDescription.substring(0, 155),
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: "Chart Room AI | Fractional AI Leadership for Regulated Financial Firms",
-    description: seoDescription,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    locale: "en_US",
-    type: "website",
-  },
+  // No site-wide canonical or og:url here: each indexable page sets its own via
+  // pageUrlMetadata() in @/lib/seo, and confirmation/error pages are noindex.
+  openGraph: siteOpenGraph,
 };
 
 const structuredData = {

@@ -1,10 +1,12 @@
 import { CtaBand } from "@/components/CtaBand";
 import { PageIntro } from "@/components/PageIntro";
 import { siteConfig } from "@/lib/site-config";
+import { noIndexMetadata } from "@/lib/seo";
 
 export const metadata = {
   title: "Request Not Sent",
   description: "Contact form recovery options for Chart Room AI.",
+  ...noIndexMetadata,
 };
 
 export default function ContactErrorPage() {
