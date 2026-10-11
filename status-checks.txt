@@ -1,4 +1,4 @@
-Preview: https://website-git-forge-40-about-firm-voice-chart-room.vercel.app (deployment dpl_4nqfyXLt1oKVcMe6B9svaHDongro, head 9a624fd)
+Preview: https://website-git-forge-40-about-firm-voice-chart-room.vercel.app (deployment dpl_4njpqxHy1aBa7jr7zAkFQW1Vwkx3, head c89dfeb)
 /                200
 /why-chart-room  200
 /expertise       200
