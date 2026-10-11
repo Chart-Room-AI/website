@@ -114,7 +114,7 @@ export default function AboutPage() {
               <p className="mt-3 text-lg font-medium text-chart-ink">
                 Founder &amp; Principal Consultant
               </p>
-              <p className="mt-1 text-base text-chart-ink/80">Former fintech CTO and CEO</p>
+              <p className="mt-1 text-base text-chart-ink/80">Former fintech CTO and Acting CEO</p>
               <Link
                 href="/experience"
                 className="mt-6 inline-flex min-h-11 items-center text-sm font-semibold text-chart-teal underline underline-offset-4 hover:text-chart-navy"
@@ -125,9 +125,9 @@ export default function AboutPage() {
             <div className="space-y-5 text-lg leading-relaxed text-chart-ink">
               <p>
                 Chart Room AI was founded by Marc Cheatham, who leads our technical work. Marc
-                brings thirty-one years of technology leadership, including eighteen years as
-                Chief Technology Officer across multiple firms. Most recently, he served for four
-                years as CTO and CEO of <strong>{siteConfig.priorVentureName}</strong>, a{" "}
+                brings 31 years of technology leadership, including 18 years as Chief Technology
+                Officer across multiple firms. Most recently, he served for four years as CTO and
+                Acting CEO of <strong>{siteConfig.priorVentureName}</strong>, a{" "}
                 <strong>{siteConfig.priorVentureTagline}</strong> company focused on financial
                 planning and capital market assumptions.
               </p>

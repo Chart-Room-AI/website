@@ -29,14 +29,14 @@ export default function ExperiencePage() {
               Recent-decade CTO scope
             </p>
             <h2 className="mt-3 text-2xl font-bold tracking-tight text-chart-navy md:text-3xl">
-              Chief Technology Officer and CEO - {siteConfig.priorVentureName}
+              Chief Technology Officer and Acting CEO - {siteConfig.priorVentureName}
             </h2>
             <p className="mt-3 font-medium text-chart-ink">
               Approx. four-year chapter - United States - {siteConfig.priorVentureTagline} -
               buyers in regulated and institutionally discerning segments.
             </p>
             <p className="mt-5 leading-relaxed text-chart-ink">
-              Dual CTO and chief executive accountability for product direction,
+              Dual CTO and acting chief executive accountability for product direction,
               engineering throughput, security posture, and revenue-bearing client delivery,
               with continuous exposure to how buyers evaluate depth on capital markets mechanics,
               solvency-style analytics, and data integrity.
@@ -47,7 +47,7 @@ export default function ExperiencePage() {
             <h3 className="text-xl font-bold text-chart-navy">Composite reading</h3>
             <p className="mt-3 leading-relaxed text-chart-ink">
               The capability themes below blend firsthand work Marc led as Chief Technology
-              Officer at Riverfront and as CTO / CEO at{" "}
+              Officer at Riverfront and as CTO / Acting CEO at{" "}
               <strong>{siteConfig.priorVentureName}</strong>. Interim chief executive
               stretches, venture-facing diligence, and certain partnership / commercial narrative
               arcs skew heavily toward <strong>{siteConfig.priorVentureName}</strong>. Trading
