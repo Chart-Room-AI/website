@@ -1,0 +1,19 @@
+Preview: https://website-git-forge-44-intro-call-15min-chart-room.vercel.app (deployment dpl_8ME993UysEJC1VzEThFjjhkCk5MR, READY, head 0cf2654)
+/                200
+/why-chart-room  200
+/expertise       200
+/experience      200
+/about           200
+/contact         200
+/care-helm       200
+/bosun           200
+
+Copy check (visible text, preview):
+/                new=1 old30=0
+/about           new=1 old30=0
+/experience      new=1 old30=0
+/expertise       new=1 old30=0
+/why-chart-room  new=1 old30=0
+/bosun           30-minute hits=0
+/contact         30-minute hits=0
+/care-helm       30-minute hits=0

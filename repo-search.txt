@@ -1,0 +1,6 @@
+Repo search at 0cf2654: rg -n -i '30-minute|30 minute|30-min|30 min|half-hour|thirty-minute|diagnostic call' web
+web/src/lib/bosun-content.ts:164:    includedHelp: "30 min",
+web/src/lib/bosun-content.ts:175:    includedHelp: "1 hr (includes a 30-min screen-share)",
+(both hits are Bosun plan support allowances, not intro calls)
+
+pdftotext public/bosun/bosun-by-chart-room-ai.pdf | rg -i 'minute|call': no matches
