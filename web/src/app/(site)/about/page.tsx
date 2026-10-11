@@ -9,19 +9,19 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata = {
   title: "About",
   description:
-    "Chart Room AI helps businesses put AI to work: fractional AI leadership consulting, the Care Helm, and Bosun. Founded by Marc Cheatham.",
+    "Chart Room AI helps businesses put AI to work: fractional AI leadership consulting, the Care Helm, and Bosun by Chart Room AI. Founded by Marc Cheatham.",
 };
 
 const offerings = [
   {
     title: "Fractional AI leadership consulting",
-    body: "We act as a part-time AI and technology leadership team for regulated financial firms, turning stalled AI initiatives into governed, production-ready systems leadership can take to the board.",
+    body: "We act as a part-time AI and technology leadership team for regulated financial firms, turning stalled AI initiatives into governed, production-ready systems, with roadmaps leadership can take to the board.",
     href: "/why-chart-room",
     linkLabel: "Why firms work with us",
   },
   {
     title: "The Care Helm",
-    body: "Clear, shift-by-shift care guidance at the point of care, with a secure portal where families, assisted living and memory care communities, and home care agencies keep instructions up to date.",
+    body: "Clear, shift-by-shift guidance for caregivers at the point of care, with a secure portal where families or staff keep instructions up to date. Built for families, assisted living and memory care communities, and home care agencies.",
     href: "/care-helm",
     linkLabel: "Explore the Care Helm",
   },
@@ -36,11 +36,11 @@ const offerings = [
 export default function AboutPage() {
   return (
     <>
-      <PageIntro eyebrow="About us" title="We help businesses put AI to work.">
+      <PageIntro eyebrow="About us" title="We chart a clear course for putting AI to work.">
         <p>
           {siteConfig.legalName} leads AI programs for regulated financial firms, makes the Care
-          Helm for families and care organizations, and offers Bosun, an office teammate for small
-          trade and service businesses. Whatever the size of the business, we start from the
+          Helm for families and care organizations, and offers Bosun by Chart Room AI, an office
+          teammate for small trade and service businesses. Whatever the size of the business, we start from the
           same place: practical AI with the right controls and people in the loop.
         </p>
       </PageIntro>
@@ -49,18 +49,18 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-5xl gap-12 px-4 py-16 md:grid-cols-[1fr_0.9fr] lg:max-w-6xl">
           <div className="space-y-5 text-lg leading-relaxed text-chart-ink">
             <p>
-              We bring the perspective of operators who have lived the full arc from regulated
-              data and custody-class engineering to VC pitches, client-ready narratives, capital
-              markets modeling, and production AI delivery.
+              Our AI leadership work draws on experience across the full arc: regulated data and
+              custody systems engineering, investor pitches and client narratives, capital markets
+              modeling, and production AI delivery.
             </p>
             <p>
-              That background informs how we prioritize use cases, sequence delivery, and keep
-              AI programs connected to the controls, decisions, and people required for adoption.
+              That background shapes how we choose use cases, sequence delivery, and keep AI
+              programs tied to the controls, decisions, and people adoption depends on.
             </p>
             <div className="grid gap-4 pt-4 sm:grid-cols-2">
               <FeatureCard
                 title="How we work"
-                body="Focused discovery, phased priorities, co-driven execution with your leaders, and commercial terms handled offline as the engagement takes shape."
+                body="For consulting: focused discovery, phased priorities, and hands-on execution alongside your leaders. Terms are set once the work is scoped."
               />
               <FeatureCard
                 title="Reach"
@@ -133,8 +133,8 @@ export default function AboutPage() {
               </p>
               <p>
                 He has guided production multi-agent AI systems in cash flow analysis, tax-aware
-                planning workflows, forecasting, developer productivity automation, and evaluation
-                pipelines with human verification baselines. That hands-on experience is the
+                planning workflows, forecasting, developer productivity automation, and testing
+                that checks AI output against human review. That hands-on experience is the
                 foundation of how Chart Room AI builds and governs AI for our clients.
               </p>
             </div>
