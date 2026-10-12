@@ -43,7 +43,7 @@ One config per client, in git:
 
 `sample: true` is required for anything that is not Marc-approved client copy. The sample banner and `noindex` stay on. Dry Creek Landscaping in `dry-creek-sample` is placeholder content. Do not add real client copy, photos, or claims, and do not invent Dry Creek facts.
 
-Secrets (Turnstile, Microsoft, and later Gmail) are Vercel env vars. Never commit them, log their values, or paste them into an issue or PR.
+Secrets (Turnstile and Microsoft 365) are Vercel env vars. Never commit them, log their values, or paste them into an issue or PR. Quote mail is Microsoft 365 for now (Marc, Oct 12, 2026, 4:37 PM ET). Gmail stays a stub.
 
 ## How a client picks up a later template fix
 
@@ -70,7 +70,7 @@ Until PR #34 is merged, the only project on this pipeline is `client-template`, 
 - HTTP 200 for those pages, plus `/icon` and `/opengraph-image` (`image/png`).
 - The sample banner is visible when `sample: true`.
 - Contact form: without Turnstile and mail env vars, a POST returns **303** to `/contact/error`, and the log names missing variables without values. GET returns **405**.
-- A delivered email is required proof only after Marc has approved the env vars and the provider can send. `gmail` cannot send yet. Do not treat the error-page redirect as delivery.
+- A delivered email is required proof only after Marc has approved the Microsoft 365 env vars. The provider is `m365`. `gmail` is a stub and is out of scope for now. Do not treat the error-page redirect as delivery.
 - `git diff origin/main -- web/` is empty.
 
 Screenshots for the sample and for an earlier config swap live on the orphan branch `proof/pr34`. Proof branches must set `web/vercel.json` and `template/vercel.json` to `{"git":{"deploymentEnabled":false}}`.
@@ -79,7 +79,7 @@ Screenshots for the sample and for an earlier config swap live on the orphan bra
 
 Do not do these in the build:
 
-- Implement Gmail (account type and sign-in are undecided).
+- Implement Gmail. Marc chose Microsoft 365 for now (Oct 12, 2026, 4:37 PM ET).
 - Add Turnstile or Microsoft env vars, or send a live email.
 - Set `client-template`'s production branch, or attach a domain.
 - Treat Vercel Pro as paid until Marc confirms the trial converted (#25). Previews may exist before that. A client domain may not.

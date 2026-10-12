@@ -130,7 +130,7 @@ Do not run this checklist on a real domain until:
 - Marc has approved this checklist (the ticket is `needs-marc`).
 - Marc has confirmed the Vercel Pro trial converted to paid billing (#25). Preview builds can exist before that. A client domain cannot.
 - The template in `template/` is on `main`, and the client project’s production branch is `main`.
-- Marc has said Turnstile and mail env vars may be set, and (if the config uses `gmail`) Gmail is actually implemented. Until then the form fails safe and is not launch proof.
+- Marc has said Turnstile and Microsoft 365 env vars may be set. Quote mail is Microsoft 365 for now (Marc, Oct 12, 2026, 4:37 PM ET). Gmail is out of scope. Until the env vars are set, the form fails safe and is not launch proof.
 
 `client-template` (`prj_ILpzXSqhZHrdXpxlYAPjDWEovXt8`) is the sample preview project. It has **no custom domain**. Do not attach one. Do not change its production branch in this checklist; Marc confirms that it should be `main`.
 

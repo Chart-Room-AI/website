@@ -301,9 +301,8 @@ Turnstile and send failures redirect (303) to `/contact/error`. Spam-class rejec
 
 Email goes through the provider named by `contact.provider` (`src/lib/mail/`):
 
-- **`m365`:** Microsoft Graph `sendMail`, the same path as `web/`.
-- **`gmail`:** **stub.** It fails safe to the error page until Marc decides the Gmail
-  account type and sign-in.
+- **`m365`:** Microsoft Graph `sendMail`, the same path as `web/`. This is the provider Marc chose for now (Oct 12, 2026, 4:37 PM ET).
+- **`gmail`:** **stub.** It fails safe to the error page. Gmail is out of scope until Marc asks for it.
 
 ### Environment variables (Vercel, per client project)
 
@@ -324,8 +323,8 @@ None of these are set on `client-template` yet, so its form fails safe to the er
 
 These are not implemented, and this branch does not add them:
 
-- **Gmail sending.** `contact.provider: "gmail"` throws `MailNotConfiguredError` and the form goes to the error page. Do not implement Gmail until Marc picks the account type (Google Workspace or personal Gmail) and the sign-in method.
-- **Live mail delivery, Turnstile, and Microsoft secrets.** Do not add `TURNSTILE_*` or `MICROSOFT_*` / `CONTACT_*` env vars on `client-template`, and do not send a live email, until Marc says to. A submission with no secrets fails safe to `/contact/error`. The route logs missing variable **names** only.
+- **Gmail sending.** Marc chose Microsoft 365 for now (Oct 12, 2026, 4:37 PM ET). `contact.provider: "gmail"` throws `MailNotConfiguredError` and the form goes to the error page. Leave the stub in place.
+- **Live mail delivery, Turnstile, and Microsoft secrets.** The provider is Microsoft 365. Do not add `TURNSTILE_*` or `MICROSOFT_*` / `CONTACT_*` env vars on `client-template`, and do not send a live email, until Marc says to. A submission with no secrets fails safe to `/contact/error`. The route logs missing variable **names** only.
 - **Production branch and domain.** `client-template` has no custom domain. Whether its production branch is `main` is Marc's to confirm. This branch stays a preview. Do not change that setting here.
 
 The repeatable build steps are in [`CLIENT_SITE_BUILD_PIPELINE.md`](../CLIENT_SITE_BUILD_PIPELINE.md) (#23). Putting a client domain live is in [`WEBSITE_HOSTING_DNS_NOTES.md`](../WEBSITE_HOSTING_DNS_NOTES.md) (#24). Intake (#22) waits until those steps point at this `template/`.

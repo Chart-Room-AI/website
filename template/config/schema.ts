@@ -115,8 +115,9 @@ export const clientConfigSchema = z.object({
     hours: z.array(z.string().min(1)).default([]),
     /**
      * Which mailbox type sends quote-form email. `m365` sends through
-     * Microsoft Graph. `gmail` is a stub until Marc decides the account type
-     * and sign-in (#21). Credentials stay in Vercel env vars, never here.
+     * Microsoft Graph. Marc chose Microsoft 365 for now (Oct 12, 2026,
+     * 4:37 PM ET, #21). `gmail` stays a stub and fails safe. Credentials
+     * stay in Vercel env vars, never here.
      */
     provider: z.enum(["m365", "gmail"]),
   }),
