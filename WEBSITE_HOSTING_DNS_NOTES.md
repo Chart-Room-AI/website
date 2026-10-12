@@ -130,7 +130,7 @@ Do not run this checklist on a real domain until:
 - Marc has approved this checklist (the ticket is `needs-marc`).
 - Marc has confirmed the Vercel Pro trial converted to paid billing (#25). Preview builds can exist before that. A client domain cannot.
 - The template in `template/` is on `main`, and the client project’s production branch is `main`.
-- Marc has said Turnstile and Microsoft 365 env vars may be set. Quote mail is Microsoft 365 for now (Marc, Oct 12, 2026, 4:37 PM ET). Gmail is out of scope. Until the env vars are set, the form fails safe and is not launch proof.
+- Marc has said Turnstile and Microsoft 365 env vars may be set. Quote mail is Microsoft 365 for now (Marc, Oct 12, 2026, 4:37 PM ET). Gmail is out of scope. Turnstile is one widget per client domain (Marc, Oct 12, 2026, 4:39 PM ET). Until the env vars are set, the form fails safe and is not launch proof.
 
 `client-template` (`prj_ILpzXSqhZHrdXpxlYAPjDWEovXt8`) is the sample preview project. It has **no custom domain**. Do not attach one. Do not change its production branch in this checklist; Marc confirms that it should be `main`.
 
@@ -142,6 +142,7 @@ Do not run this checklist on a real domain until:
 - Production branch: `main`.
 - Ignored Build Step: `git diff --quiet HEAD^ HEAD -- .` so the project builds only when `template/` changes.
 - `CLIENT_CONFIG=<id>` on Production and Preview. That value is not a secret.
+- Turnstile: one widget for this client's domain (Marc, Oct 12, 2026, 4:39 PM ET). Create it when Marc says keys may be set. Put `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` on this project only. On the widget, allow the client's apex and `www`.
 - Deployment protection off, unless Marc asks for it.
 - No secrets in Git, the PR, or the issue. Names only, in the PR body, when Marc has approved adding them.
 

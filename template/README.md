@@ -309,7 +309,7 @@ Email goes through the provider named by `contact.provider` (`src/lib/mail/`):
 | Name | Where | Public? | Notes |
 |---|---|---|---|
 | `CLIENT_CONFIG` | Production + Preview | build-time, not secret | Client config id |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Production + Preview | public (browser) | Turnstile widget |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Production + Preview | public (browser) | That client's Turnstile widget |
 | `TURNSTILE_SECRET_KEY` | Production + Preview | **secret, server-only** | Without it, production rejects every submission (error page) |
 | `TURNSTILE_ALLOWED_HOSTNAMES` | optional | server | CSV of extra hostnames. The config's `seo.siteUrl` host (± `www.`), the project's Vercel production URL, and (outside production) the deployment's own Vercel URLs are always allowed |
 | `MICROSOFT_TENANT_ID`, `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Production + Preview | **secret, server-only** | `m365` provider |
@@ -319,12 +319,14 @@ Email goes through the provider named by `contact.provider` (`src/lib/mail/`):
 
 None of these are set on `client-template` yet, so its form fails safe to the error page.
 
+Turnstile is **one widget per client domain** (Marc, Oct 12, 2026, 4:39 PM ET). Create the widget for that domain and put its site key and secret on that Vercel project only. The widget's hostname list is the client's apex and `www`. The template also allows that project's own Vercel hosts on previews. A shared widget is not the plan.
+
 ## Stopped until Marc decides (#21)
 
 These are not implemented, and this branch does not add them:
 
 - **Gmail sending.** Marc chose Microsoft 365 for now (Oct 12, 2026, 4:37 PM ET). `contact.provider: "gmail"` throws `MailNotConfiguredError` and the form goes to the error page. Leave the stub in place.
-- **Live mail delivery, Turnstile, and Microsoft secrets.** The provider is Microsoft 365. Do not add `TURNSTILE_*` or `MICROSOFT_*` / `CONTACT_*` env vars on `client-template`, and do not send a live email, until Marc says to. A submission with no secrets fails safe to `/contact/error`. The route logs missing variable **names** only.
+- **Live mail delivery and secrets.** The provider is Microsoft 365. Turnstile is one widget per client domain. Do not add `TURNSTILE_*` or `MICROSOFT_*` / `CONTACT_*` env vars on `client-template`, and do not send a live email, until Marc says to. A submission with no secrets fails safe to `/contact/error`. The route logs missing variable **names** only.
 - **Production branch and domain.** `client-template` has no custom domain. Whether its production branch is `main` is Marc's to confirm. This branch stays a preview. Do not change that setting here.
 
 The repeatable build steps are in [`CLIENT_SITE_BUILD_PIPELINE.md`](../CLIENT_SITE_BUILD_PIPELINE.md) (#23). Putting a client domain live is in [`WEBSITE_HOSTING_DNS_NOTES.md`](../WEBSITE_HOSTING_DNS_NOTES.md) (#24). Intake (#22) waits until those steps point at this `template/`.

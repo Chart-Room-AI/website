@@ -43,7 +43,7 @@ One config per client, in git:
 
 `sample: true` is required for anything that is not Marc-approved client copy. The sample banner and `noindex` stay on. Dry Creek Landscaping in `dry-creek-sample` is placeholder content. Do not add real client copy, photos, or claims, and do not invent Dry Creek facts.
 
-Secrets (Turnstile and Microsoft 365) are Vercel env vars. Never commit them, log their values, or paste them into an issue or PR. Quote mail is Microsoft 365 for now (Marc, Oct 12, 2026, 4:37 PM ET). Gmail stays a stub.
+Secrets (Turnstile and Microsoft 365) are Vercel env vars. Never commit them, log their values, or paste them into an issue or PR. Quote mail is Microsoft 365 for now (Marc, Oct 12, 2026, 4:37 PM ET). Gmail stays a stub. Turnstile is one widget per client domain (Marc, Oct 12, 2026, 4:39 PM ET): that project's keys only.
 
 ## How a client picks up a later template fix
 
@@ -80,7 +80,7 @@ Screenshots for the sample and for an earlier config swap live on the orphan bra
 Do not do these in the build:
 
 - Implement Gmail. Marc chose Microsoft 365 for now (Oct 12, 2026, 4:37 PM ET).
-- Add Turnstile or Microsoft env vars, or send a live email.
+- Add Turnstile or Microsoft env vars, or send a live email. The widget model is already decided: one Turnstile widget per client domain.
 - Set `client-template`'s production branch, or attach a domain.
 - Treat Vercel Pro as paid until Marc confirms the trial converted (#25). Previews may exist before that. A client domain may not.
 
