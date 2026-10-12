@@ -13,7 +13,8 @@ const example = JSON.parse(readFileSync(new URL("../config/brand-kit.example.jso
 const sample = JSON.parse(readFileSync(new URL("../config/clients/dry-creek-sample.brand-kit.json", import.meta.url), "utf8")) as BrandKitInput;
 
 const schemaPath = new URL("../config/brand-kit.schema.json", import.meta.url);
-const jsonSchemaText = readFileSync(schemaPath, "utf8");
+// Checkout on Windows may use CRLF. The committed schema and the generator use LF.
+const jsonSchemaText = readFileSync(schemaPath, "utf8").replace(/\r\n/g, "\n");
 const jsonSchema = JSON.parse(jsonSchemaText);
 // JSON Schema patterns are ECMA-262 regexes (unanchored unless the pattern anchors itself).
 const familySchemas = (["heading", "body"] as const).map((role) => jsonSchema.properties.fonts.properties[role].properties.family);

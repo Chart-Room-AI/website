@@ -53,7 +53,7 @@ out-of-spec asset fails the build and names the exact field, for example:
 | `config/brand-kit.ts` | **Brand kit** schema (zod). Embedded unchanged as `brand` in a client config. |
 | `config/brand-kit.schema.json` | The same schema as JSON Schema, for tools that emit kits. Generated from the zod schema and font list (`npm run kit-schema`); `npm run test-kit` fails if it's stale. |
 | `config/brand-kit.example.json` | A complete example kit with every field. |
-| `config/font-catalog.ts` | Supported fonts and the fallback rules. |
+| `config/font-catalog.ts` | The 18 supported font families. Strict: no nearest-match or category fallback. |
 | `config/icon-names.ts` | Icon names a service can use. |
 | `config/assets.ts` | Asset conventions: formats, sizes, folder. |
 | `config/contrast.ts` | WCAG contrast math and the palette pairs the classic design uses. |
@@ -320,7 +320,12 @@ Email goes through the provider named by `contact.provider` (`src/lib/mail/`):
 
 None of these are set on `client-template` yet, so its form fails safe to the error page.
 
-## Not built yet (#21)
+## Stopped until Marc decides (#21)
 
-Gmail sending (pending Marc's decision), and a Vercel preview proof of a real submission
-per provider (needs Turnstile and mail env vars on a client project).
+These are not implemented, and this branch does not add them:
+
+- **Gmail sending.** `contact.provider: "gmail"` throws `MailNotConfiguredError` and the form goes to the error page. Do not implement Gmail until Marc picks the account type (Google Workspace or personal Gmail) and the sign-in method.
+- **Live mail delivery, Turnstile, and Microsoft secrets.** Do not add `TURNSTILE_*` or `MICROSOFT_*` / `CONTACT_*` env vars on `client-template`, and do not send a live email, until Marc says to. A submission with no secrets fails safe to `/contact/error`. The route logs missing variable **names** only.
+- **Production branch and domain.** `client-template` has no custom domain. Whether its production branch is `main` is Marc's to confirm. This branch stays a preview. Do not change that setting here.
+
+The repeatable build steps are in [`CLIENT_SITE_BUILD_PIPELINE.md`](../CLIENT_SITE_BUILD_PIPELINE.md) (#23). Putting a client domain live is in [`WEBSITE_HOSTING_DNS_NOTES.md`](../WEBSITE_HOSTING_DNS_NOTES.md) (#24). Intake (#22) waits until those steps point at this `template/`.

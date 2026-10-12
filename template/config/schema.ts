@@ -114,8 +114,9 @@ export const clientConfigSchema = z.object({
     }),
     hours: z.array(z.string().min(1)).default([]),
     /**
-     * Which mailbox type sends quote-form email. Credentials for either
-     * provider live in Vercel env vars only (wired in a later slice of #21).
+     * Which mailbox type sends quote-form email. `m365` sends through
+     * Microsoft Graph. `gmail` is a stub until Marc decides the account type
+     * and sign-in (#21). Credentials stay in Vercel env vars, never here.
      */
     provider: z.enum(["m365", "gmail"]),
   }),

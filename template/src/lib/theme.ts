@@ -11,7 +11,7 @@ const genericStacks = {
   "sans-serif": "ui-sans-serif, system-ui, sans-serif",
 } as const;
 
-/** The supported fonts this brand kit resolves to (unsupported picks map by category). */
+/** The supported fonts this brand kit resolves to. Unsupported families fail validation. */
 export function brandFonts(config: ClientConfig) {
   // The schema only accepts supported families; see brand-kit.ts.
   const heading = findFont(config.brand.fonts.heading.family)!;
