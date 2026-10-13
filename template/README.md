@@ -317,7 +317,7 @@ Email goes through the provider named by `contact.provider` (`src/lib/mail/`):
 | `CONTACT_FROM_NAME` | optional | server-only | Defaults to the business name |
 | `CONTACT_DELIVERY_MODE` | local/preview only | server-only | `noop` accepts and drops mail for testing. Refused in production |
 
-None of these are set on `client-template` yet, so its form fails safe to the error page.
+On project `client-template`, Production has `CLIENT_CONFIG` only. Preview also has the Turnstile pair and the Microsoft 365 sender variables, set Oct 13, 2026, for the dry-run. The values are not in git. A production deploy still has no mail secrets, so it fails safe to `/contact/error`.
 
 Turnstile is **one widget per client domain** (Marc, Oct 12, 2026, 4:39 PM ET). Create the widget for that domain and put its site key and secret on that Vercel project only. The widget's hostname list is the client's apex and `www`. The template also allows that project's own Vercel hosts on previews. A shared widget is not the plan.
 
@@ -325,8 +325,8 @@ Turnstile is **one widget per client domain** (Marc, Oct 12, 2026, 4:39 PM ET). 
 
 These are not implemented, and this branch does not add them:
 
-- **Gmail sending.** Marc chose Microsoft 365 for now (Oct 12, 2026, 4:37 PM ET). `contact.provider: "gmail"` throws `MailNotConfiguredError` and the form goes to the error page. Leave the stub in place.
-- **Live mail delivery and secrets.** The provider is Microsoft 365. Turnstile is one widget per client domain. Do not add `TURNSTILE_*` or `MICROSOFT_*` / `CONTACT_*` env vars on `client-template`, and do not send a live email, until Marc says to. A submission with no secrets fails safe to `/contact/error`. The route logs missing variable **names** only.
+- **Gmail sending.** Marc chose Microsoft 365 for now (Oct 12, 2026, 4:37 PM ET) and deferred Gmail again (Oct 13, 2026, 11:06 AM ET: "ok we are deferring the gmail part."). `contact.provider: "gmail"` throws `MailNotConfiguredError` and the form goes to the error page. Leave the stub in place.
+- **Live mail on the dry-run preview.** One quote was delivered on Oct 13, 2026, 10:59 AM ET, from `https://client-template-git-forge-21-client-template-chart-room.vercel.app/contact` to the Chart Room mailbox. The subject was `Dry Creek Landscaping: quote request from Template test`. Those env vars stay on Preview only. Do not copy the values into git, an issue, or Production. The route logs missing variable **names** only.
 - **Production branch and domain.** Marc confirmed on Oct 13, 2026 (8:03 AM ET) that Production branch tracking is `main`. The production domain shown is `client-template-ten.vercel.app`. This branch stays a preview. Do not attach a custom domain.
 
 The repeatable build steps are in [`CLIENT_SITE_BUILD_PIPELINE.md`](../CLIENT_SITE_BUILD_PIPELINE.md) (#23). Putting a client domain live is in [`WEBSITE_HOSTING_DNS_NOTES.md`](../WEBSITE_HOSTING_DNS_NOTES.md) (#24). Intake (#22) waits until those steps point at this `template/`.

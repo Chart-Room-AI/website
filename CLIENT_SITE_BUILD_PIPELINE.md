@@ -57,7 +57,7 @@ Until PR #34 is merged, the only project on this pipeline is `client-template`, 
 
 1. Start from current `main`. For a client, the config comes from intake (#22). Until then, the only config is `dry-creek-sample`.
 2. `cd template` and run `npm run validate-kit -- config/clients/<id>.brand-kit.json --assets public/clients/<id>`, then `npm run lint`, `npm run typecheck`, `npm run build`, and `npm run test-kit`. `prebuild` runs `check-config`. A bad font, a text contrast failure, or a bad asset fails the build.
-3. Open a pull request. Link the client ticket with `Closes #N` when that ticket's acceptance criteria are met. PR #34 does **not** say `Closes #21` and stays a draft until they are.
+3. Open a pull request. Link the client ticket with `Closes #N` when that ticket's acceptance criteria are met. Gmail on #21 is deferred (Marc, Oct 13, 2026, 11:06 AM ET). PR #34 may say `Closes #21` and leave draft once Surveyor's verdict matches the head SHA. It does not close #20.
 4. The client project's preview is the proof URL. Also confirm the `website` preview of the same branch still returns 200 for `/`, `/about`, `/contact`, `/care-helm`, and `/bosun`.
 5. Surveyor reviews against `REVIEW.md`. Visual proof is screenshots of the preview. Behavior proof includes HTTP status codes, not only a local build.
 6. Marc approves the preview link. Record his words, the time in ET, and the head SHA on the PR.
@@ -70,7 +70,7 @@ Until PR #34 is merged, the only project on this pipeline is `client-template`, 
 - HTTP 200 for those pages, plus `/icon` and `/opengraph-image` (`image/png`).
 - The sample banner is visible when `sample: true`.
 - Contact form: without Turnstile and mail env vars, a POST returns **303** to `/contact/error`, and the log names missing variables without values. GET returns **405**.
-- A delivered email is required proof only after Marc has approved the Microsoft 365 env vars. The provider is `m365`. `gmail` is a stub and is out of scope for now. Do not treat the error-page redirect as delivery.
+- A delivered email is the mail proof. The dry-run delivered one on Oct 13, 2026, 10:59 AM ET (subject `Dry Creek Landscaping: quote request from Template test`). The provider is `m365`. `gmail` is a stub. Do not treat the error-page redirect as delivery. The thank-you page is also used for a quiet spam reject, so the inbox message is the proof.
 - `git diff origin/main -- web/` is empty.
 
 Screenshots for the sample and for an earlier config swap live on the orphan branch `proof/pr34`. Proof branches must set `web/vercel.json` and `template/vercel.json` to `{"git":{"deploymentEnabled":false}}`.
@@ -79,8 +79,8 @@ Screenshots for the sample and for an earlier config swap live on the orphan bra
 
 Do not do these in the build:
 
-- Implement Gmail. Marc chose Microsoft 365 for now (Oct 12, 2026, 4:37 PM ET).
-- Add Turnstile or Microsoft env vars, or send a live email. The widget model is already decided: one Turnstile widget per client domain.
+- Implement Gmail. Marc chose Microsoft 365 for now (Oct 12, 2026, 4:37 PM ET) and deferred Gmail again (Oct 13, 2026, 11:06 AM ET).
+- Add more Turnstile or Microsoft env vars, or send another live email, as part of this ticket. The dry-run already delivered one quote (Oct 13, 2026, 10:59 AM ET) using Preview variables on `client-template`. The widget model is still one Turnstile widget per client domain. That test reused the existing Chart Room widget. A firm site gets its own widget.
 - Change `client-template`'s production branch. Marc confirmed it tracks `main` (Oct 13, 2026, 8:03 AM ET). Do not attach a custom domain.
 - Treat Vercel Pro as paid until Marc confirms the trial converted (#25). Previews may exist before that. A client domain may not.
 
