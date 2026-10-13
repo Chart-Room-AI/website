@@ -132,7 +132,7 @@ Do not run this checklist on a real domain until:
 - The template in `template/` is on `main`, and the client project’s production branch is `main`.
 - Marc has said Turnstile and Microsoft 365 env vars may be set. Quote mail is Microsoft 365 for now (Marc, Oct 12, 2026, 4:37 PM ET). Gmail is out of scope. Turnstile is one widget per client domain (Marc, Oct 12, 2026, 4:39 PM ET). Until the env vars are set, the form fails safe and is not launch proof.
 
-`client-template` (`prj_ILpzXSqhZHrdXpxlYAPjDWEovXt8`) is the sample preview project. It has **no custom domain**. Do not attach one. Do not change its production branch in this checklist; Marc confirms that it should be `main`.
+`client-template` (`prj_ILpzXSqhZHrdXpxlYAPjDWEovXt8`) is the sample preview project. Production branch tracking is `main` (Marc, Oct 13, 2026, 8:03 AM ET). The production domain shown is `client-template-ten.vercel.app`. Do not attach a custom domain. Do not change that branch.
 
 ### 1. Project on the Chart Room team
 

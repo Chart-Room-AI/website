@@ -21,7 +21,7 @@ Marc's hands-on time for a client site is the intake call and the preview approv
 - **App:** `template/`. `git diff origin/main -- web/` stays empty on a client-site change.
 - **Vercel:** one project per client on team `chart-room`.
 - **Project name:** `client-<config-id>`. The id matches `CLIENT_CONFIG` and the file `template/config/clients/<id>.ts`.
-- **Sample project:** `client-template` (`prj_ILpzXSqhZHrdXpxlYAPjDWEovXt8`). Root directory `template`. `CLIENT_CONFIG=dry-creek-sample`. No custom domain. It previews this branch. Its production branch should be `main`; Marc confirms that. Do not change it in the Vercel dashboard from this pipeline.
+- **Sample project:** `client-template` (`prj_ILpzXSqhZHrdXpxlYAPjDWEovXt8`). Root directory `template`. `CLIENT_CONFIG=dry-creek-sample`. No custom domain. It previews this branch. Production branch tracking is `main` (Marc, Oct 13, 2026, 8:03 AM ET). Do not change it in the Vercel dashboard from this pipeline.
 - **chartroomai.com** stays the `website` project, root directory `web/`.
 
 Project settings for every client project, including the sample:
@@ -81,7 +81,7 @@ Do not do these in the build:
 
 - Implement Gmail. Marc chose Microsoft 365 for now (Oct 12, 2026, 4:37 PM ET).
 - Add Turnstile or Microsoft env vars, or send a live email. The widget model is already decided: one Turnstile widget per client domain.
-- Set `client-template`'s production branch, or attach a domain.
+- Change `client-template`'s production branch. Marc confirmed it tracks `main` (Oct 13, 2026, 8:03 AM ET). Do not attach a custom domain.
 - Treat Vercel Pro as paid until Marc confirms the trial converted (#25). Previews may exist before that. A client domain may not.
 
 ## Dry-run

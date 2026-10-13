@@ -327,6 +327,6 @@ These are not implemented, and this branch does not add them:
 
 - **Gmail sending.** Marc chose Microsoft 365 for now (Oct 12, 2026, 4:37 PM ET). `contact.provider: "gmail"` throws `MailNotConfiguredError` and the form goes to the error page. Leave the stub in place.
 - **Live mail delivery and secrets.** The provider is Microsoft 365. Turnstile is one widget per client domain. Do not add `TURNSTILE_*` or `MICROSOFT_*` / `CONTACT_*` env vars on `client-template`, and do not send a live email, until Marc says to. A submission with no secrets fails safe to `/contact/error`. The route logs missing variable **names** only.
-- **Production branch and domain.** `client-template` has no custom domain. Whether its production branch is `main` is Marc's to confirm. This branch stays a preview. Do not change that setting here.
+- **Production branch and domain.** Marc confirmed on Oct 13, 2026 (8:03 AM ET) that Production branch tracking is `main`. The production domain shown is `client-template-ten.vercel.app`. This branch stays a preview. Do not attach a custom domain.
 
 The repeatable build steps are in [`CLIENT_SITE_BUILD_PIPELINE.md`](../CLIENT_SITE_BUILD_PIPELINE.md) (#23). Putting a client domain live is in [`WEBSITE_HOSTING_DNS_NOTES.md`](../WEBSITE_HOSTING_DNS_NOTES.md) (#24). Intake (#22) waits until those steps point at this `template/`.
