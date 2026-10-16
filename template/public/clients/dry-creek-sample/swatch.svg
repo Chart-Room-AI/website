@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="200" viewBox="0 0 600 200" role="img" aria-label="Placeholder palette swatch">
+  <rect width="100" height="200" fill="#2f5d3a"/>
+  <rect x="100" width="100" height="200" fill="#d9822b"/>
+  <rect x="200" width="100" height="200" fill="#f7f5ef"/>
+  <rect x="300" width="100" height="200" fill="#1f2a22"/>
+  <rect x="400" width="100" height="200" fill="#55615a"/>
+  <rect x="500" width="100" height="200" fill="#dcd8cc"/>
+</svg>
