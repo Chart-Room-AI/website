@@ -1,0 +1,37 @@
+{
+  "$schema": "../brand-kit.schema.json",
+  "kitVersion": 1,
+  "source": {
+    "generator": "forge-placeholder",
+    "createdAt": "2026-10-08T19:30:00-04:00",
+    "notes": "PLACEHOLDER brand kit for the template sample. Not from a real interview; the Dry Creek Landscaping kit will come from Beacon's brand interview."
+  },
+  "palette": {
+    "primary": "#2f5d3a",
+    "accent": "#d9822b",
+    "surface": "#f7f5ef",
+    "text": "#1f2a22",
+    "muted": "#55615a",
+    "border": "#dcd8cc"
+  },
+  "fonts": {
+    "heading": { "family": "Fraunces", "category": "display" },
+    "body": { "family": "Inter", "category": "sans-serif" }
+  },
+  "logo": {
+    "variant": "icon",
+    "showName": true,
+    "alt": "Dry Creek Landscaping logo (placeholder)",
+    "onLight": { "file": "logo.svg", "width": 48, "height": 48 },
+    "onDark": { "file": "logo-on-dark.svg", "width": 48, "height": 48 }
+  },
+  "iconStyle": { "style": "outline", "weight": "regular", "corners": "rounded" },
+  "imageDirection": {
+    "mood": "Warm, tidy and neighborly; yards that look cared for, not staged.",
+    "style": "Natural daylight, eye-level, minimal editing.",
+    "subjects": ["Freshly edged lawns", "Planted beds", "Paver patios", "Crews at work (faces optional)"],
+    "avoid": ["Stock-photo models", "Heavy filters", "Visible house numbers or license plates"],
+    "aspectRatios": { "hero": "4:3", "gallery": "4:3" }
+  },
+  "swatch": { "file": "swatch.svg", "width": 600, "height": 200 }
+}
