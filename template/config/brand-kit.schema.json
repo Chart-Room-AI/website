@@ -1,0 +1,476 @@
+{
+  "title": "Client site template brand kit",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "Optional path to brand-kit.schema.json for editor validation",
+      "type": "string"
+    },
+    "kitVersion": {
+      "type": "number",
+      "const": 1,
+      "description": "Brand kit format version. Currently 1"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "generator": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What produced the kit, e.g. \"beacon-brand-interview\""
+        },
+        "generatorVersion": {
+          "type": "string"
+        },
+        "interviewId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+          "description": "ISO 8601 timestamp"
+        },
+        "approvedBy": {
+          "description": "Who approved the kit (e.g. the client)",
+          "type": "string"
+        },
+        "approvedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "generator",
+        "createdAt"
+      ],
+      "additionalProperties": false,
+      "description": "Where the kit came from"
+    },
+    "palette": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "description": "Main brand color: header, hero, headings"
+        },
+        "accent": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "description": "Call-to-action color: quote buttons, highlights"
+        },
+        "surface": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "description": "Page background"
+        },
+        "text": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "description": "Body text on the surface color"
+        },
+        "secondary": {
+          "description": "Secondary buttons, badges and icon tiles. Default: a light tint of primary (primary 10% over surface)",
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "card": {
+          "description": "Card background. Default: white at 60% over surface",
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "muted": {
+          "description": "Secondary text. Default: text blended toward surface",
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "border": {
+          "description": "Card and input borders. Default: text at low contrast",
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "success": {
+          "description": "Success messages. Default #2e7d32",
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "warning": {
+          "description": "Warnings. Default #b26a00",
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "danger": {
+          "description": "Errors. Default #b3261e",
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        }
+      },
+      "required": [
+        "primary",
+        "accent",
+        "surface",
+        "text"
+      ],
+      "additionalProperties": false,
+      "description": "Named color roles. Text on primary/accent/secondary is derived; text pairs must meet WCAG AA (see README)"
+    },
+    "fonts": {
+      "type": "object",
+      "properties": {
+        "heading": {
+          "type": "object",
+          "properties": {
+            "family": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\s*(?:[Ii][Nn][Tt][Ee][Rr]|[Ss][Oo][Uu][Rr][Cc][Ee]\\s+[Ss][Aa][Nn][Ss]\\s+3|[Oo][Pp][Ee][Nn]\\s+[Ss][Aa][Nn][Ss]|[Rr][Oo][Bb][Oo][Tt][Oo]|[Nn][Uu][Nn][Ii][Tt][Oo]|[Dd][Mm]\\s+[Ss][Aa][Nn][Ss]|[Ww][Oo][Rr][Kk]\\s+[Ss][Aa][Nn][Ss]|[Mm][Aa][Nn][Rr][Oo][Pp][Ee]|[Mm][Oo][Nn][Tt][Ss][Ee][Rr][Rr][Aa][Tt]|[Rr][Aa][Ll][Ee][Ww][Aa][Yy]|[Ll][Oo][Rr][Aa]|[Mm][Ee][Rr][Rr][Ii][Ww][Ee][Aa][Tt][Hh][Ee][Rr]|[Ll][Ii][Bb][Rr][Ee]\\s+[Bb][Aa][Ss][Kk][Ee][Rr][Vv][Ii][Ll][Ll][Ee]|[Rr][Oo][Bb][Oo][Tt][Oo]\\s+[Ss][Ll][Aa][Bb]|[Ee][Bb]\\s+[Gg][Aa][Rr][Aa][Mm][Oo][Nn][Dd]|[Ff][Rr][Aa][Uu][Nn][Cc][Ee][Ss]|[Pp][Ll][Aa][Yy][Ff][Aa][Ii][Rr]\\s+[Dd][Ii][Ss][Pp][Ll][Aa][Yy]|[Oo][Ss][Ww][Aa][Ll][Dd])\\s*$",
+              "examples": [
+                "Inter",
+                "Source Sans 3",
+                "Open Sans",
+                "Roboto",
+                "Nunito",
+                "DM Sans",
+                "Work Sans",
+                "Manrope",
+                "Montserrat",
+                "Raleway",
+                "Lora",
+                "Merriweather",
+                "Libre Baskerville",
+                "Roboto Slab",
+                "EB Garamond",
+                "Fraunces",
+                "Playfair Display",
+                "Oswald"
+              ],
+              "description": "One of the supported families: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway, Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond, Fraunces, Playfair Display, Oswald. Any casing is accepted and normalized; exact casing is recommended"
+            },
+            "category": {
+              "description": "Optional metadata (serif, sans-serif or display). It never changes which font loads",
+              "type": "string",
+              "enum": [
+                "serif",
+                "sans-serif",
+                "display"
+              ]
+            }
+          },
+          "required": [
+            "family"
+          ],
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "family": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\s*(?:[Ii][Nn][Tt][Ee][Rr]|[Ss][Oo][Uu][Rr][Cc][Ee]\\s+[Ss][Aa][Nn][Ss]\\s+3|[Oo][Pp][Ee][Nn]\\s+[Ss][Aa][Nn][Ss]|[Rr][Oo][Bb][Oo][Tt][Oo]|[Nn][Uu][Nn][Ii][Tt][Oo]|[Dd][Mm]\\s+[Ss][Aa][Nn][Ss]|[Ww][Oo][Rr][Kk]\\s+[Ss][Aa][Nn][Ss]|[Mm][Aa][Nn][Rr][Oo][Pp][Ee]|[Mm][Oo][Nn][Tt][Ss][Ee][Rr][Rr][Aa][Tt]|[Rr][Aa][Ll][Ee][Ww][Aa][Yy]|[Ll][Oo][Rr][Aa]|[Mm][Ee][Rr][Rr][Ii][Ww][Ee][Aa][Tt][Hh][Ee][Rr]|[Ll][Ii][Bb][Rr][Ee]\\s+[Bb][Aa][Ss][Kk][Ee][Rr][Vv][Ii][Ll][Ll][Ee]|[Rr][Oo][Bb][Oo][Tt][Oo]\\s+[Ss][Ll][Aa][Bb]|[Ee][Bb]\\s+[Gg][Aa][Rr][Aa][Mm][Oo][Nn][Dd]|[Ff][Rr][Aa][Uu][Nn][Cc][Ee][Ss]|[Pp][Ll][Aa][Yy][Ff][Aa][Ii][Rr]\\s+[Dd][Ii][Ss][Pp][Ll][Aa][Yy]|[Oo][Ss][Ww][Aa][Ll][Dd])\\s*$",
+              "examples": [
+                "Inter",
+                "Source Sans 3",
+                "Open Sans",
+                "Roboto",
+                "Nunito",
+                "DM Sans",
+                "Work Sans",
+                "Manrope",
+                "Montserrat",
+                "Raleway",
+                "Lora",
+                "Merriweather",
+                "Libre Baskerville",
+                "Roboto Slab",
+                "EB Garamond",
+                "Fraunces",
+                "Playfair Display",
+                "Oswald"
+              ],
+              "description": "One of the supported families: Inter, Source Sans 3, Open Sans, Roboto, Nunito, DM Sans, Work Sans, Manrope, Montserrat, Raleway, Lora, Merriweather, Libre Baskerville, Roboto Slab, EB Garamond, Fraunces, Playfair Display, Oswald. Any casing is accepted and normalized; exact casing is recommended"
+            },
+            "category": {
+              "description": "Optional metadata (serif, sans-serif or display). It never changes which font loads",
+              "type": "string",
+              "enum": [
+                "serif",
+                "sans-serif",
+                "display"
+              ]
+            }
+          },
+          "required": [
+            "family"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "heading",
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "logo": {
+      "type": "object",
+      "properties": {
+        "variant": {
+          "type": "string",
+          "enum": [
+            "wordmark",
+            "icon",
+            "combo"
+          ],
+          "description": "wordmark = name only, icon = mark only, combo = mark + name"
+        },
+        "showName": {
+          "type": "boolean",
+          "description": "Show the business name as text beside the logo in the header"
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Alt text for the logo"
+        },
+        "onLight": {
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._-]*\\.(svg|png|jpe?g|webp)$",
+              "description": "File name in template/public/clients/<client-id>/, e.g. logo.svg"
+            },
+            "width": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
+              "description": "Intrinsic width in px (SVG: viewBox width)"
+            },
+            "height": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
+              "description": "Intrinsic height in px (SVG: viewBox height)"
+            }
+          },
+          "required": [
+            "file",
+            "width",
+            "height"
+          ],
+          "additionalProperties": false,
+          "description": "Logo for light backgrounds (required)"
+        },
+        "onDark": {
+          "description": "Logo for dark backgrounds (footer, Open Graph image)",
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._-]*\\.(svg|png|jpe?g|webp)$",
+              "description": "File name in template/public/clients/<client-id>/, e.g. logo.svg"
+            },
+            "width": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
+              "description": "Intrinsic width in px (SVG: viewBox width)"
+            },
+            "height": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
+              "description": "Intrinsic height in px (SVG: viewBox height)"
+            }
+          },
+          "required": [
+            "file",
+            "width",
+            "height"
+          ],
+          "additionalProperties": false
+        },
+        "icon": {
+          "description": "Square mark used as the favicon source. Default: onLight when variant is icon, else generated initials",
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._-]*\\.(svg|png|jpe?g|webp)$",
+              "description": "File name in template/public/clients/<client-id>/, e.g. logo.svg"
+            },
+            "width": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
+              "description": "Intrinsic width in px (SVG: viewBox width)"
+            },
+            "height": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
+              "description": "Intrinsic height in px (SVG: viewBox height)"
+            }
+          },
+          "required": [
+            "file",
+            "width",
+            "height"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "variant",
+        "showName",
+        "alt",
+        "onLight"
+      ],
+      "additionalProperties": false
+    },
+    "iconStyle": {
+      "default": {
+        "style": "outline",
+        "weight": "regular",
+        "corners": "rounded"
+      },
+      "type": "object",
+      "properties": {
+        "style": {
+          "default": "outline",
+          "type": "string",
+          "enum": [
+            "outline",
+            "solid",
+            "duotone"
+          ]
+        },
+        "weight": {
+          "default": "regular",
+          "description": "Stroke weight for outline icons",
+          "type": "string",
+          "enum": [
+            "thin",
+            "light",
+            "regular",
+            "bold"
+          ]
+        },
+        "corners": {
+          "default": "rounded",
+          "description": "Shape of the tiles behind icons",
+          "type": "string",
+          "enum": [
+            "rounded",
+            "sharp"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "imageDirection": {
+      "type": "object",
+      "properties": {
+        "mood": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Overall feel, e.g. \"warm, tidy, neighborly\""
+        },
+        "style": {
+          "description": "Photo style, e.g. \"natural light, documentary, no heavy filters\"",
+          "type": "string"
+        },
+        "subjects": {
+          "default": [],
+          "description": "What photos should show",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "avoid": {
+          "default": [],
+          "description": "What photos must not show",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "aspectRatios": {
+          "default": {
+            "hero": "4:3",
+            "gallery": "4:3"
+          },
+          "type": "object",
+          "properties": {
+            "hero": {
+              "default": "4:3",
+              "type": "string",
+              "pattern": "^\\d{1,2}:\\d{1,2}$",
+              "description": "Aspect ratio \"w:h\", e.g. \"4:3\""
+            },
+            "gallery": {
+              "default": "4:3",
+              "type": "string",
+              "pattern": "^\\d{1,2}:\\d{1,2}$",
+              "description": "Aspect ratio \"w:h\", e.g. \"4:3\""
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "mood"
+      ],
+      "additionalProperties": false,
+      "description": "Guidance for the photo/gallery pipeline. Metadata only for now"
+    },
+    "swatch": {
+      "description": "Palette swatch image from the interview. Metadata only",
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]*\\.(svg|png|jpe?g|webp)$",
+          "description": "File name in template/public/clients/<client-id>/, e.g. logo.svg"
+        },
+        "width": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "description": "Intrinsic width in px (SVG: viewBox width)"
+        },
+        "height": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "description": "Intrinsic height in px (SVG: viewBox height)"
+        }
+      },
+      "required": [
+        "file",
+        "width",
+        "height"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "kitVersion",
+    "source",
+    "palette",
+    "fonts",
+    "logo",
+    "imageDirection"
+  ],
+  "additionalProperties": false
+}
