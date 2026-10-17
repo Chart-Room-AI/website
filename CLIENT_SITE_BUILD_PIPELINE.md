@@ -70,6 +70,7 @@ Until PR #34 is merged, the only project on this pipeline is `client-template`, 
 - HTTP 200 for those pages, plus `/icon` and `/opengraph-image` (`image/png`).
 - The sample banner is visible when `sample: true`.
 - Contact form: without Turnstile and mail env vars, a POST returns **303** to `/contact/error`, and the log names missing variables without values. GET returns **405**.
+- Sample configs (`sample: true`, which shows the banner) never send email: any POST returns **303** to `/contact/thank-you?sample=not-sent` and the page says "Sample site: not sent". `npm run test-contact` proves the sender is never called. Mail proof needs a non-sample config.
 - A delivered email is the mail proof. The dry-run delivered one on Oct 13, 2026, 10:59 AM ET (subject `Dry Creek Landscaping: quote request from Template test`). The provider is `m365`. `gmail` is a stub. Do not treat the error-page redirect as delivery. The thank-you page is also used for a quiet spam reject, so the inbox message is the proof.
 - `git diff origin/main -- web/` is empty.
 

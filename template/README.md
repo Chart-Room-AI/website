@@ -317,6 +317,8 @@ Email goes through the provider named by `contact.provider` (`src/lib/mail/`):
 | `CONTACT_FROM_NAME` | optional | server-only | Defaults to the business name |
 | `CONTACT_DELIVERY_MODE` | local/preview only | server-only | `noop` accepts and drops mail for testing. Refused in production |
 
+A config with `sample: true` never sends, whatever env vars are set: the route redirects to `/contact/thank-you?sample=not-sent` without reading the form (`npm run test-contact`).
+
 On project `client-template`, Production has `CLIENT_CONFIG` only. Preview also has the Turnstile pair and the Microsoft 365 sender variables, set Oct 13, 2026, for the dry-run. The values are not in git. A production deploy still has no mail secrets, so it fails safe to `/contact/error`.
 
 Turnstile is **one widget per client domain** (Marc, Oct 12, 2026, 4:39 PM ET). Create the widget for that domain and put its site key and secret on that Vercel project only. The widget's hostname list is the client's apex and `www`. The template also allows that project's own Vercel hosts on previews. A shared widget is not the plan.

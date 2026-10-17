@@ -10,6 +10,11 @@ export function ThankYou({ config }: DesignPageProps) {
   return (
     <Container className="max-w-2xl py-20 text-center">
       <UiIcon name="check-circle" iconStyle={brand.iconStyle} size={56} className="mx-auto text-success" />
+      {config.sample ? (
+        <p role="status" className="mt-6 rounded-md border border-foreground/30 px-4 py-3 text-sm font-semibold text-foreground">
+          Sample site: not sent. This form doesn&apos;t send email on a sample site.
+        </p>
+      ) : null}
       <h1 className="mt-6 font-heading text-4xl font-semibold text-primary">Thanks. We got your request.</h1>
       <p className="mt-4 text-lg text-muted">
         We&apos;ll get back to you soon. If it&apos;s urgent, call us at{" "}
