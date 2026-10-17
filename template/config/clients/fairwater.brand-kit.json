@@ -1,0 +1,83 @@
+{
+  "kitVersion": 1,
+  "source": {
+    "generator": "figurehead-brand-guide",
+    "generatorVersion": "2.0.0-draft",
+    "interviewId": "fairwater-demo-72-workhorse",
+    "createdAt": "2026-10-17T10:00:00-04:00",
+    "notes": "Fairwater Home Services, direction B 'Workhorse' (picked by Marc Oct 17, 2026, verbally; not a written approval). FICTIONAL demo firm for Chart Room AI demos (chartroom-ops #26, #72; website #73). PLACEHOLDER EXAMPLE CONTENT: fake firm and fake contact data, not a real client, no interview. approvedBy/approvedAt stay empty until written approval."
+  },
+  "palette": {
+    "primary": "#1B1D1F",
+    "accent": "#C6F035",
+    "surface": "#FFFFFF",
+    "text": "#1B1D1F",
+    "secondary": "#ECEBE7",
+    "card": "#FFFFFF",
+    "muted": "#5E646A",
+    "border": "#D5D4CF",
+    "success": "#4A7300"
+  },
+  "fonts": {
+    "heading": {
+      "family": "Oswald",
+      "category": "display"
+    },
+    "body": {
+      "family": "Roboto",
+      "category": "sans-serif"
+    }
+  },
+  "logo": {
+    "variant": "combo",
+    "showName": false,
+    "alt": "Fairwater Home Services logo",
+    "onLight": {
+      "file": "logo.svg",
+      "width": 575,
+      "height": 124
+    },
+    "onDark": {
+      "file": "logo-on-dark.svg",
+      "width": 575,
+      "height": 124
+    },
+    "icon": {
+      "file": "icon.svg",
+      "width": 512,
+      "height": 512
+    }
+  },
+  "iconStyle": {
+    "style": "outline",
+    "weight": "bold",
+    "corners": "sharp"
+  },
+  "imageDirection": {
+    "mood": "Capable, crisp, and straightforward: crews doing real work and finished jobs that look sharp.",
+    "style": "Bright daylight, documentary, eye-level or slightly low angle, clean true color, strong contrast, no heavy grading.",
+    "subjects": [
+      "Techs at work: hands, tools, gauges, mowers, wands (faces only with OK)",
+      "Finished work: a clean driveway line, a striped lawn, a serviced condenser, a spotless counter",
+      "Same-spot before-and-after pairs",
+      "Charcoal uniforms and vans with Volt details (plates hidden)"
+    ],
+    "avoid": [
+      "Real customers' faces, house numbers, street signs, or license plates",
+      "Posed stock 'crews' giving thumbs-up",
+      "Boats, anchors, ship's wheels, compasses, or any nautical props",
+      "Macho or aggressive poses, fire, explosions",
+      "Heavy filters, HDR, or neon glow effects",
+      "Robots or 'AI' imagery"
+    ],
+    "aspectRatios": {
+      "hero": "16:9",
+      "gallery": "4:3"
+    }
+  },
+  "swatch": {
+    "file": "swatch.png",
+    "width": 1600,
+    "height": 1000
+  }
+}
