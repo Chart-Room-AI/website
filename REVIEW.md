@@ -1,4 +1,4 @@
-# REVIEW.md: approval rules for cheezd/website
+# REVIEW.md: approval rules for the website repo
 
 These are the rules Surveyor uses to approve or request changes on pull requests
 in this repo. They are versioned with the code. **Changes to this file go through
