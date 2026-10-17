@@ -17,7 +17,7 @@ Marc's hands-on time for a client site is the intake call and the preview approv
 
 ## Where the site lives
 
-- **Repo:** `cheezd/website` only. Do not make a new repo per client.
+- **Repo:** this `website` repo only (GitHub owner moves to `Chart-Room-AI` in chartroom-ops#77). Do not make a new repo per client.
 - **App:** `template/`. `git diff origin/main -- web/` stays empty on a client-site change.
 - **Vercel:** one project per client on team `chart-room`.
 - **Project name:** `client-<config-id>`. The id matches `CLIENT_CONFIG` and the file `template/config/clients/<id>.ts`.
