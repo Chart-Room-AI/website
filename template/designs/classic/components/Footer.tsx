@@ -3,7 +3,7 @@ import Link from "next/link";
 import { assetUrl } from "@config/assets";
 import type { ClientConfig } from "@config/schema";
 import { formatAddress, telHref } from "@/lib/contact";
-import { sitePages } from "@/lib/routes";
+import { navPages } from "@/lib/routes";
 import { Container } from "./ui";
 
 const socialLabels: Record<ClientConfig["social"][number]["platform"], string> = {
@@ -95,7 +95,7 @@ export function Footer({ config }: { config: ClientConfig }) {
         <nav aria-label="Footer">
           <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-on-primary-muted">Pages</h2>
           <ul className="mt-3 space-y-2 text-sm">
-            {sitePages.map((page) => (
+            {navPages(config).map((page) => (
               <li key={page.href}>
                 <Link href={page.href} className="hover:underline">
                   {page.label}
