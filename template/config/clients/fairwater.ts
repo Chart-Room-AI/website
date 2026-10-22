@@ -120,8 +120,8 @@ export const fairwater = {
     ],
     highlights: [
       "Written price before every job",
-      "Same crew on repeat visits",
-      "Text when we're on the way",
+      "Locally run, in Chesterfield County",
+      "One number for all four trades",
     ],
     image: {
       file: "about-crew-van.webp",
