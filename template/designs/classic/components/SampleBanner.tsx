@@ -19,6 +19,8 @@ export function SampleBanner() {
         alt=""
         width={30}
         height={30}
+        unoptimized
+        loading="eager"
         className="h-[30px] w-[30px] shrink-0"
       />
       <span className="shrink-0 text-[15px] font-bold tracking-tight">Chart Room AI</span>
