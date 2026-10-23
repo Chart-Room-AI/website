@@ -29,7 +29,7 @@ export const siteConfig = {
   resumeHref:
     process.env.NEXT_PUBLIC_RESUME_URL ?? "/documents/Marc-Cheatham-Resume.pdf",
 
-  /** Most recent CTO / CEO chapter — employer name disclosed on site */
+  /** Most recent CTO / Acting CEO chapter — employer name disclosed on site */
   priorVentureName: "Caravel Concepts",
 
   /** One-line sector label (appears in Experience meta + About) */
