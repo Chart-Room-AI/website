@@ -7,7 +7,7 @@ type CtaBandProps = {
 
 export function CtaBand({
   title = "Ready to stop managing the mess and start leading the transformation?",
-  body = "Book a 30-minute operator-to-operator diagnostic call. No pitch. No slides. Just a candid conversation with someone who has been exactly where you are.",
+  body = "Book a free 15-minute operator-to-operator intro call. No pitch. No slides. Just a candid conversation with someone who has been exactly where you are.",
 }: CtaBandProps) {
   return (
     <section className="relative overflow-hidden bg-chart-navy text-white">
