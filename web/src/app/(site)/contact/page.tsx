@@ -3,10 +3,12 @@ import { ContactForm } from "@/components/ContactForm";
 import { PageIntro } from "@/components/PageIntro";
 import { engagementOptions } from "@/lib/site-content";
 import { siteConfig } from "@/lib/site-config";
+import { pageUrlMetadata } from "@/lib/seo";
 
 export const metadata = {
   title: "Contact",
   description: "Contact Chart Room AI about fractional AI transformation leadership.",
+  ...pageUrlMetadata("/contact"),
 };
 
 export default function ContactPage() {
