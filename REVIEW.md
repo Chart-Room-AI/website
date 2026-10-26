@@ -91,6 +91,12 @@ apply; not every lens applies to every change.
 - **Security:** for each finding, trace the input path. User input reaching dangerous sinks,
   gaps in new endpoints, secrets in code, logs, or error messages, and anything that lets a
   bot or attacker use the forms to send mail.
+- **Security-audit trigger:** a PR touching auth, workflows (`.github/`), infra, or secrets
+  also gets a guidance pass with the security-audit skill
+  ([cloudflare/security-audit-skill@c1c8a8c](https://github.com/cloudflare/security-audit-skill/tree/c1c8a8c1471069fb0e188eeaff69b8e8db6564a8), pinned to
+  `c1c8a8c1471069fb0e188eeaff69b8e8db6564a8`, chartroom-ops#130). Any check that could not be
+  verified is reported as unverified, not as passed. This adds to the existing review
+  passes; it replaces none of them.
 
 ## 4. Website proof rule
 
