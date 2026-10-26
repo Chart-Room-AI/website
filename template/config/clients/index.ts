@@ -1,5 +1,6 @@
 import type { ClientConfigInput } from "../schema";
 import { dryCreekSample } from "./dry-creek-sample";
+import { fairwater } from "./fairwater";
 
 /**
  * Every client config the template can build. The key is the CLIENT_CONFIG
@@ -11,4 +12,5 @@ export const DEFAULT_CLIENT_CONFIG = "dry-creek-sample";
 
 export const clientConfigs: Record<string, ClientConfigInput> = {
   "dry-creek-sample": dryCreekSample,
+  fairwater,
 };

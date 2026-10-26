@@ -2,6 +2,8 @@
 export const QUOTE_ENDPOINT = "/api/contact";
 export const THANK_YOU_PATH = "/contact/thank-you";
 export const ERROR_PATH = "/contact/error";
+/** Where a sample config (config.sample) sends every submission. No email is sent. */
+export const SAMPLE_NOT_SENT_PATH = `${THANK_YOU_PATH}?sample=not-sent`;
 export const HONEYPOT_FIELD = "fax_number";
 export const STARTED_AT_FIELD = "form_started_at";
 export const TURNSTILE_ACTION = "quote";
