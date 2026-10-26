@@ -49,6 +49,7 @@ export function QuoteForm({ config }: { config: ClientConfig }) {
           placeholder="The job, rough size, address or neighborhood, and timing."
         />
       </label>
+      {config.sample ? <p className="text-sm text-muted">Sample site: this form doesn&apos;t send email.</p> : null}
       <button
         type="submit"
         className="inline-flex min-h-12 items-center justify-center rounded-md bg-accent px-6 py-3 text-base font-semibold text-on-accent shadow-lg shadow-black/10 transition hover:brightness-95"

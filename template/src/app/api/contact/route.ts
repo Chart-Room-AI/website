@@ -4,6 +4,7 @@ import {
   ERROR_PATH,
   HONEYPOT_FIELD,
   QUOTE_FIELDS,
+  SAMPLE_NOT_SENT_PATH,
   STARTED_AT_FIELD,
   THANK_YOU_PATH,
   TURNSTILE_ACTION,
@@ -17,6 +18,9 @@ import {
  * - Spam-class rejects (honeypot, too fast, foreign origin, caps/links): silent
  *   303 to /contact/thank-you, so the redirect never tells a bot which check it hit.
  * - Never returns 500. Env var values are never logged, only names.
+ * - Sample configs (config.sample, the "sample site" banner) never send email:
+ *   303 to /contact/thank-you?sample=not-sent before the form is even read, so
+ *   nothing is parsed or logged. Preview env may hold real sender secrets.
  */
 
 type QuoteRequest = { name: string; email: string; phone: string; service: string; message: string };
@@ -27,6 +31,10 @@ const BLOCKED_LINK_HOSTS = ["tinyurl.com", "bit.ly", "t.co", "telegra.ph", "goo.
 const URL_PATTERN = /https?:\/\/[^\s]+/gi;
 
 export async function POST(request: Request) {
+  if (clientConfig.sample) {
+    console.info("Sample site: quote form submission not sent (config.sample is true).");
+    return redirectTo(request, SAMPLE_NOT_SENT_PATH);
+  }
   try {
     const formData = await request.formData();
 

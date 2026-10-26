@@ -15,7 +15,7 @@ These notes describe how `chartroomai.com` is hosted and where DNS authority liv
 - Hosting provider: Vercel
 - Vercel team/account: `Chart Room`
 - Vercel project: `website`
-- GitHub repo: `cheezd/website`
+- GitHub repo: `<owner>/website` (owner moves to `Chart-Room-AI` in chartroom-ops#77; see "After the GitHub org transfer" below)
 - Production branch: `main`
 - App root directory in repo: `web`
 
@@ -138,7 +138,7 @@ Do not run this checklist on a real domain until:
 
 - Team: `chart-room` (Vercel Pro).
 - One Vercel project per client. Name it `client-<config-id>`, where `<config-id>` matches `CLIENT_CONFIG` and `config/clients/<id>.ts`. The sample project stays named `client-template`.
-- Git: `cheezd/website`. Root Directory: `template`. Framework: Next.js. Node: 24.x. Install, build, and output: the project defaults (`npm` from the lockfile, `npm run build`).
+- Git: `<owner>/website` (see "After the GitHub org transfer"). Root Directory: `template`. Framework: Next.js. Node: 24.x. Install, build, and output: the project defaults (`npm` from the lockfile, `npm run build`).
 - Production branch: `main`.
 - Ignored Build Step: `git diff --quiet HEAD^ HEAD -- .` so the project builds only when `template/` changes.
 - `CLIENT_CONFIG=<id>` on Production and Preview. That value is not a secret.
@@ -209,3 +209,15 @@ Do not include secrets, billing details, or the contents of the email DNS export
 ### Not done yet
 
 No client domain is attached. No DNS was changed for this checklist. The before/after email-DNS proof and Launch’s post-deploy check for the first real client are still open on #24.
+
+## After the GitHub org transfer (chartroom-ops#77)
+
+Vercel's Git connection is tied to the GitHub App installation on the owner account, so it can't be switched by a config
+value in this repo. After Marc transfers `website` to the `Chart-Room-AI` org:
+
+1. Install the Vercel GitHub app on `Chart-Room-AI` (github.com/apps/vercel, select only `website`).
+2. In Vercel, for each project on this repo (`website`, `client-template`, and every `client-<id>`): Settings, Git,
+   Disconnect, then Connect `Chart-Room-AI/website`. Keep Root Directory, Production branch, Ignored Build Step and the
+   preview-only branch settings exactly as they are.
+3. Push a no-op commit to a branch and confirm a Preview build; confirm Production still points at `main`.
+GitHub redirects the old `cheezd/website` URLs, so links in older docs keep working.

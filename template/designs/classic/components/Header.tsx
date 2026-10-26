@@ -3,7 +3,7 @@ import Link from "next/link";
 import { assetUrl } from "@config/assets";
 import type { ClientConfig } from "@config/schema";
 import { telHref } from "@/lib/contact";
-import { quoteHref, sitePages } from "@/lib/routes";
+import { navPages, quoteHref } from "@/lib/routes";
 import { ButtonLink, Container } from "./ui";
 
 export function Header({ config }: { config: ClientConfig }) {
@@ -27,7 +27,7 @@ export function Header({ config }: { config: ClientConfig }) {
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
-          {sitePages.slice(1).map((page) => (
+          {navPages(config).slice(1).map((page) => (
             <Link key={page.href} href={page.href} className="text-sm font-medium text-muted hover:text-primary-ink">
               {page.label}
             </Link>
@@ -53,7 +53,7 @@ export function Header({ config }: { config: ClientConfig }) {
               Menu
             </summary>
             <nav aria-label="Mobile" className="absolute right-0 mt-2 grid w-56 gap-1 rounded-lg border border-primary/10 bg-surface p-2 shadow-xl">
-              {sitePages.map((page) => (
+              {navPages(config).map((page) => (
                 <Link key={page.href} href={page.href} className="rounded px-3 py-2 text-sm font-medium hover:bg-primary/5">
                   {page.label}
                 </Link>
