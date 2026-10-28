@@ -3,10 +3,12 @@ import { CtaBand } from "@/components/CtaBand";
 import { FeatureCard } from "@/components/FeatureCard";
 import { PageIntro } from "@/components/PageIntro";
 import { brandImages, expertiseCards } from "@/lib/site-content";
+import { pageUrlMetadata } from "@/lib/seo";
 
 export const metadata = {
   title: "Expertise",
   description: "Chart Room AI expertise across AI systems, fintech platforms, security, and executive delivery.",
+  ...pageUrlMetadata("/expertise"),
 };
 
 export default function ExpertisePage() {

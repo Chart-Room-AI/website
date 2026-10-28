@@ -5,11 +5,13 @@ import { FeatureCard } from "@/components/FeatureCard";
 import { PageIntro } from "@/components/PageIntro";
 import { audience, brandImages } from "@/lib/site-content";
 import { siteConfig } from "@/lib/site-config";
+import { pageUrlMetadata } from "@/lib/seo";
 
 export const metadata = {
   title: "About",
   description:
     "Chart Room AI helps businesses put AI to work: fractional AI leadership consulting, the Care Helm, and Bosun by Chart Room AI. Founded by Marc Cheatham.",
+  ...pageUrlMetadata("/about"),
 };
 
 const offerings = [

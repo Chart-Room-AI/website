@@ -3,10 +3,12 @@ import { FeatureCard } from "@/components/FeatureCard";
 import { PageIntro } from "@/components/PageIntro";
 import { experienceHighlights } from "@/lib/site-content";
 import { siteConfig } from "@/lib/site-config";
+import { pageUrlMetadata } from "@/lib/seo";
 
 export const metadata = {
   title: "Experience",
   description: "Selected leadership background for Marc Cheatham and Chart Room AI.",
+  ...pageUrlMetadata("/experience"),
 };
 
 export default function ExperiencePage() {
