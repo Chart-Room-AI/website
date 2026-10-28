@@ -35,8 +35,8 @@ export const audience = [
 
 export const proofPoints = [
   {
-    value: "25+",
-    label: "years as CTO and CISO in financial industry environments",
+    value: "31",
+    label: "years in technology, including 18 as CTO",
   },
   {
     value: "$10B",
@@ -226,7 +226,7 @@ export const experienceHighlights = [
     title: "Commercial, VC, and security leadership",
     items: [
       "Served as the front-line technical voice in sponsor-facing, investor-facing, and large-prospect demos where domain depth had to land with experts.",
-      "Held CEO responsibilities during transitional periods while keeping delivery, stakeholder confidence, and internal alignment connected.",
+      "Held acting CEO responsibilities during transitional periods while keeping delivery, stakeholder confidence, and internal alignment connected.",
       "Established enterprise information security policies bridging fast-moving delivery with audit-friendly behavior.",
     ],
   },
