@@ -87,7 +87,7 @@ export function BosunContactForm() {
         type="submit"
         className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-md bg-bosun-brass px-6 py-3 text-base font-semibold text-chart-navy shadow-md transition hover:brightness-105 sm:w-auto"
       >
-        Book a free 15-minute call
+        Book a free 15-minute Bosun intro call
       </button>
     </form>
   );

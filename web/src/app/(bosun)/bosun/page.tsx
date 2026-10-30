@@ -75,7 +75,7 @@ export default function BosunPage() {
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a
-                href="#get-started"
+                href={siteConfig.bosunBookingHref}
                 className="inline-flex min-h-12 items-center justify-center rounded-md bg-bosun-brass px-7 py-3 text-base font-semibold text-chart-navy shadow-xl shadow-black/20 transition hover:brightness-105"
               >
                 {bosunHero.primaryCta}
@@ -300,7 +300,7 @@ export default function BosunPage() {
                   ))}
                 </ul>
                 <a
-                  href="#get-started"
+                  href={siteConfig.bosunBookingHref}
                   className={
                     plan.recommended
                       ? "mt-6 inline-flex min-h-11 items-center justify-center rounded-md bg-bosun-brass px-5 py-3 text-sm font-semibold text-chart-navy transition hover:brightness-105"
@@ -324,7 +324,7 @@ export default function BosunPage() {
               ))}
             </div>
             <a
-              href="#get-started"
+              href={siteConfig.bosunBookingHref}
               className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-md bg-bosun-brass px-7 py-3 text-base font-semibold text-chart-navy shadow-xl shadow-black/20 transition hover:brightness-105"
             >
               {bosunPricingCta.button}
