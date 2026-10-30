@@ -27,6 +27,7 @@ Use Microsoft Bookings as the scheduling backend for Chart Room AI diagnostics s
 ## App Integration
 
 - Set `NEXT_PUBLIC_BOOKING_URL` to the Microsoft Bookings public service URL.
+- Marc creates a separate 15-minute "Bosun intro call" service by hand in the Bookings admin (no date set). After that, `NEXT_PUBLIC_BOSUN_BOOKING_URL` gets set in Vercel to its public URL on its own Marc card. Neither blocks website PR #45: while the var is unset or empty, Bosun CTAs fall back to the Bosun contact form (`#get-started`).
 - Keep `NEXT_PUBLIC_FORM_ENDPOINT` pointed at the diagnostic request form handler.
 - Update contact-page copy so the diagnostic form remains the primary action.
 - Add a secondary CTA such as `Prefer to book directly? Choose a diagnostic time`.

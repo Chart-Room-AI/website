@@ -21,6 +21,10 @@ export const siteConfig = {
   bookingHref:
     process.env.NEXT_PUBLIC_BOOKING_URL ?? "/contact#diagnostic-form",
 
+  /** Free 15-minute Bosun intro call; unset or empty falls back to the Bosun contact form on /bosun. */
+  bosunBookingHref:
+    process.env.NEXT_PUBLIC_BOSUN_BOOKING_URL || "#get-started",
+
   auditHref:
     process.env.NEXT_PUBLIC_AUDIT_URL ?? "/contact#diagnostic-form",
 

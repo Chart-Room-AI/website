@@ -16,7 +16,7 @@ export const bosunHero = {
   headlineTail: "back.",
   subheadline:
     "An office teammate that handles your email, calendar, and bills, so you can stay on the job. You just tell it what you need in plain English.",
-  primaryCta: "Book a free 15-minute call",
+  primaryCta: "Book a free 15-minute Bosun intro call",
   secondaryCta: "See plans",
 } as const;
 
@@ -187,7 +187,7 @@ export const bosunPlansAnchor = "Plans start at $49/month";
 export const bosunPricingCta = {
   label: "Pricing on a quick call",
   body: "We'll walk through pricing for each plan, and for your website, on a free 15-minute call.",
-  button: "Book a free 15-minute call",
+  button: "Book a free 15-minute Bosun intro call",
 } as const;
 
 export const bosunPlanNotes = [
